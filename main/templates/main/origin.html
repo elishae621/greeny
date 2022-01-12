@@ -24,7 +24,9 @@
     <link rel="stylesheet" href="{% static 'main/vendor/niceselect/nice-select.min.css' %}">
     <link rel="stylesheet" href="{% static 'main/vendor/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/home-classic.css' %}">
+    
+    {% block css %}{% endblock css %}
+
 </head>
 
 <body {{ body_tag_text }}>

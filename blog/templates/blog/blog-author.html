@@ -1,8 +1,12 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block main_content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/blog-author.css' %}">
+{% endblock css %}
 
+
+{% block main_content %}
 
 <section class="inner-section blog-grid">
     <div class="container">
@@ -68,7 +72,7 @@
                                     <li><i class="fas fa-user"></i><span>admin</span></li>
                                     <li><i class="fas fa-calendar-alt"></i><span>february 02, 2021</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Voluptate blanditiis provident
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Voluptate blanditiis provident
                                         Lorem ipsum dolor sit amet</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
                                     autem recusandae deleniti nam dignissimos sequi ... </p><a class="blog-btn"
@@ -85,7 +89,7 @@
                                     <li><i class="fas fa-user"></i><span>admin</span></li>
                                     <li><i class="fas fa-calendar-alt"></i><span>february 02, 2021</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Voluptate blanditiis provident
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Voluptate blanditiis provident
                                         Lorem ipsum dolor sit amet</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
                                     autem recusandae deleniti nam dignissimos sequi ... </p><a class="blog-btn"
@@ -102,7 +106,7 @@
                                     <li><i class="fas fa-user"></i><span>admin</span></li>
                                     <li><i class="fas fa-calendar-alt"></i><span>february 02, 2021</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Voluptate blanditiis provident
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Voluptate blanditiis provident
                                         Lorem ipsum dolor sit amet</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
                                     autem recusandae deleniti nam dignissimos sequi ... </p><a class="blog-btn"
@@ -119,7 +123,7 @@
                                     <li><i class="fas fa-user"></i><span>admin</span></li>
                                     <li><i class="fas fa-calendar-alt"></i><span>february 02, 2021</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Voluptate blanditiis provident
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Voluptate blanditiis provident
                                         Lorem ipsum dolor sit amet</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
                                     autem recusandae deleniti nam dignissimos sequi ... </p><a class="blog-btn"
@@ -136,7 +140,7 @@
                                     <li><i class="fas fa-user"></i><span>admin</span></li>
                                     <li><i class="fas fa-calendar-alt"></i><span>february 02, 2021</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Voluptate blanditiis provident
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Voluptate blanditiis provident
                                         Lorem ipsum dolor sit amet</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
                                     autem recusandae deleniti nam dignissimos sequi ... </p><a class="blog-btn"
@@ -153,7 +157,7 @@
                                     <li><i class="fas fa-user"></i><span>admin</span></li>
                                     <li><i class="fas fa-calendar-alt"></i><span>february 02, 2021</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Voluptate blanditiis provident
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Voluptate blanditiis provident
                                         Lorem ipsum dolor sit amet</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
                                     autem recusandae deleniti nam dignissimos sequi ... </p><a class="blog-btn"
@@ -170,7 +174,7 @@
                                     <li><i class="fas fa-user"></i><span>admin</span></li>
                                     <li><i class="fas fa-calendar-alt"></i><span>february 02, 2021</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Voluptate blanditiis provident
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Voluptate blanditiis provident
                                         Lorem ipsum dolor sit amet</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
                                     autem recusandae deleniti nam dignissimos sequi ... </p><a class="blog-btn"
@@ -187,7 +191,7 @@
                                     <li><i class="fas fa-user"></i><span>admin</span></li>
                                     <li><i class="fas fa-calendar-alt"></i><span>february 02, 2021</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Voluptate blanditiis provident
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Voluptate blanditiis provident
                                         Lorem ipsum dolor sit amet</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
                                     autem recusandae deleniti nam dignissimos sequi ... </p><a class="blog-btn"

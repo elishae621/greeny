@@ -9,6 +9,7 @@ urlpatterns = [
     path('brand/single/', views.BrandSingleView.as_view(), name='brand'),
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
     path('coming-soon/', views.ComingSoonView.as_view(), name='coming-soon'),
+    path('compare/', views.CompareView.as_view(), name='compare'),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('faq/', views.FaqView.as_view(), name='faq'),
     path('', views.IndexView.as_view(), name='home'),

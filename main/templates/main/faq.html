@@ -1,13 +1,17 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/faq.css' %}">
+{% endblock css %}
+
 {% block main_content %}
 
 <section class="inner-section single-banner" style="background: url(static/main/images/single-banner.jpg) no-repeat center;">
     <div class="container">
         <h2>faq questions</h2>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'main:home' %}">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">faq</li>
         </ol>
     </div>

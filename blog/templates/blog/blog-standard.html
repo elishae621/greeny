@@ -1,6 +1,10 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/blog-standard.css' %}">
+{% endblock css %}
+
 {% block main_content %}
 
 <section class="inner-section blog-standard">
@@ -23,8 +27,8 @@
                                     <option value="1">featured</option>
                                     <option value="2">recommend</option>
                                 </select></div>
-                            <div class="filter-action"><a href="blog-grid.html" title="Two Column"><i
-                                        class="fas fa-th-large"></i></a><a href="blog-standard.html" class="active"
+                            <div class="filter-action"><a href="{% url 'blog:list' %}" title="Two Column"><i
+                                        class="fas fa-th-large"></i></a><a href="{% url 'blog:list' %}" class="active"
                                     title="One Column"><i class="fas fa-th-list"></i></a></div>
                         </div>
                     </div>
@@ -38,12 +42,12 @@
                                     <li><i class="icofont-user-alt-3"></i><span>Miron mahmud</span></li>
                                     <li><i class="icofont-speech-comments"></i><span>25 comments</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Practical Suggestions To Improve
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Practical Suggestions To Improve
                                         Usability Landing Sages With Animation Slides.</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                     Adipisci laborum labore quaerat omnis vero ducimus molestiae amet eum
                                     repellendus, ab sapiente assumenda. Et sapiente cum obcaecati quia veritatis hic
-                                    explicabo.</p><a class="blog-btn" href="blog-details.html"><span>read
+                                    explicabo.</p><a class="blog-btn" href="{% url 'blog:detail' %}"><span>read
                                         more</span><i class="icofont-arrow-right"></i></a>
                             </div>
                         </div>
@@ -56,12 +60,12 @@
                                     <li><i class="icofont-user-alt-3"></i><span>Miron mahmud</span></li>
                                     <li><i class="icofont-speech-comments"></i><span>25 comments</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Practical Suggestions To Improve
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Practical Suggestions To Improve
                                         Usability Landing Sages With Animation Slides.</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                     Adipisci laborum labore quaerat omnis vero ducimus molestiae amet eum
                                     repellendus, ab sapiente assumenda. Et sapiente cum obcaecati quia veritatis hic
-                                    explicabo.</p><a class="blog-btn" href="blog-details.html"><span>read
+                                    explicabo.</p><a class="blog-btn" href="{% url 'blog:detail' %}"><span>read
                                         more</span><i class="icofont-arrow-right"></i></a>
                             </div>
                         </div>
@@ -74,12 +78,12 @@
                                     <li><i class="icofont-user-alt-3"></i><span>Miron mahmud</span></li>
                                     <li><i class="icofont-speech-comments"></i><span>25 comments</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Practical Suggestions To Improve
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Practical Suggestions To Improve
                                         Usability Landing Sages With Animation Slides.</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                     Adipisci laborum labore quaerat omnis vero ducimus molestiae amet eum
                                     repellendus, ab sapiente assumenda. Et sapiente cum obcaecati quia veritatis hic
-                                    explicabo.</p><a class="blog-btn" href="blog-details.html"><span>read
+                                    explicabo.</p><a class="blog-btn" href="{% url 'blog:detail' %}"><span>read
                                         more</span><i class="icofont-arrow-right"></i></a>
                             </div>
                         </div>
@@ -92,12 +96,12 @@
                                     <li><i class="icofont-user-alt-3"></i><span>Miron mahmud</span></li>
                                     <li><i class="icofont-speech-comments"></i><span>25 comments</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Practical Suggestions To Improve
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Practical Suggestions To Improve
                                         Usability Landing Sages With Animation Slides.</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                     Adipisci laborum labore quaerat omnis vero ducimus molestiae amet eum
                                     repellendus, ab sapiente assumenda. Et sapiente cum obcaecati quia veritatis hic
-                                    explicabo.</p><a class="blog-btn" href="blog-details.html"><span>read
+                                    explicabo.</p><a class="blog-btn" href="{% url 'blog:detail' %}"><span>read
                                         more</span><i class="icofont-arrow-right"></i></a>
                             </div>
                         </div>
@@ -110,12 +114,12 @@
                                     <li><i class="icofont-user-alt-3"></i><span>Miron mahmud</span></li>
                                     <li><i class="icofont-speech-comments"></i><span>25 comments</span></li>
                                 </ul>
-                                <h4 class="blog-title"><a href="blog-details.html">Practical Suggestions To Improve
+                                <h4 class="blog-title"><a href="{% url 'blog:detail' %}">Practical Suggestions To Improve
                                         Usability Landing Sages With Animation Slides.</a></h4>
                                 <p class="blog-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                     Adipisci laborum labore quaerat omnis vero ducimus molestiae amet eum
                                     repellendus, ab sapiente assumenda. Et sapiente cum obcaecati quia veritatis hic
-                                    explicabo.</p><a class="blog-btn" href="blog-details.html"><span>read
+                                    explicabo.</p><a class="blog-btn" href="{% url 'blog:detail' %}"><span>read
                                         more</span><i class="icofont-arrow-right"></i></a>
                             </div>
                         </div>

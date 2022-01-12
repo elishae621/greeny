@@ -1,13 +1,17 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/error.css' %}">
+{% endblock css %}
+
 {% block main_content %}
 
 <section class="error-part">
     <div class="container">
         <h1>404 | Not Found</h1><img class="img-fluid" src="{% static 'main/images/error.png' %}" alt="error">
         <h3>ooopps! this page can't be found.</h3>
-        <p>It looks like nothing was found at this location.</p><a href="index.html">go to home</a>
+        <p>It looks like nothing was found at this location.</p><a href="{% url 'main:home' %}">go to home</a>
     </div>
 </section>
 

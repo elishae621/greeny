@@ -54,6 +54,14 @@ class ComingSoonView(TemplateView):
         context["title"] = "Greeny - Coming Soon"
         return context
 
+class CompareView(TemplateView):
+    template_name = 'main/compare.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Greeny - Compare"
+        return context
+
 class ContactView(TemplateView):
     template_name = 'main/contact.html'
     
@@ -76,6 +84,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Classic Home - Greeny"
+        context["page"] = 'home'
         return context
     
     

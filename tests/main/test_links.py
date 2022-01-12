@@ -62,6 +62,14 @@ class TestMainLinks(TestCase):
     def test_coming_soon_page_template(self):
         response = self.client.get(reverse('main:coming-soon'))
         self.assertIn('main/coming-soon.html', response.template_name)
+    
+    def test_compare_page_works(self):
+        response = self.client.get(reverse('main:compare'))
+        self.assertEqual(response.status_code, 200)
+        
+    def test_compare_page_template(self):
+        response = self.client.get(reverse('main:compare'))
+        self.assertIn('main/compare.html', response.template_name)
         
     def test_contact_page_works(self):
         response = self.client.get(reverse('main:contact'))
