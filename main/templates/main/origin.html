@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="mironcoder">
+    <meta name="email" content="mironcoder@gmail.com">
+    <meta name="profile" content="https://themeforest.net/user/mironcoder">
+    <meta name="template" content="greeny">
+    <meta name="title" content="greeny - Ecommerce Food Store">
+    <meta name="keywords"
+        content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, products, farm, grocery, natural, online">
+    <title>{{ title }}</title>
+    <link rel="icon" href="{% static 'main/images/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/flaticon/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/icofont/icofont.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/fontawesome/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/vendor/venobox/venobox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/vendor/slickslider/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/vendor/niceselect/nice-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/vendor/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/home-classic.css' %}">
+</head>
+
+<body {{ body_tag_text }}>
+
+    {% block origin_content %}{% endblock origin_content %}
+
+    <script src="{% static 'main/vendor/bootstrap/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'main/vendor/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'main/vendor/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'main/vendor/countdown/countdown.min.js' %}"></script>
+    <script src="{% static 'main/vendor/niceselect/nice-select.min.js' %}"></script>
+    <script src="{% static 'main/vendor/slickslider/slick.min.js' %}"></script>
+    <script src="{% static 'main/vendor/venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'main/js/nice-select.js' %}"></script>
+    <script src="{% static 'main/js/countdown.js' %}"></script>
+    <script src="{% static 'main/js/accordion.js' %}"></script>
+    <script src="{% static 'main/js/venobox.js' %}"></script>
+    <script src="{% static 'main/js/slick.js' %}"></script>
+    <script src="{% static 'main/js/main.js' %}"></script>
+</body>
+
+</html>

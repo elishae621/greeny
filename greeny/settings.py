@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'greeny.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'greeny',
         'USER': 'postgres',
         'PASSWORD': config['DATABASE_PASSWORD'],
         'HOST': '127.0.0.1',
