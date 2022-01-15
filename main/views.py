@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView 
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.shortcuts import render
 from main.models import Category, Product 
 
@@ -135,6 +136,27 @@ class ProductDetailView(DetailView):
         context["title"] = "Greeny - Product"
         return context
     
+class SearchView(ListView):
+    template_name = "main/search.html"
+    model = Product
+    context_object_name = "products"
+    search_fields = ['name']
+
+    def get_queryset(self, **kwargs):
+        try:
+            key = self.request.GET['key']
+            result = list(Product.objects.filter(name__icontains=key)) + list(Product.objects.filter(description__icontains=key)) + list(Product.objects.filter(brand__icontains=key)) + list(Product.objects.filter(tags__icontains=key)) + list(Product.objects.filter(category__icontains=key))
+        except KeyError:
+            result = Product.objects.all()
+        return list(set(result))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        key = self.request.GET.get('key')
+        context['search_term'] = key
+        context['title'] = f"{key} search results - Your Psychedelic Store"
+        return context
+
 class ShopView(TemplateView):
     template_name = 'main/shop.html'
     

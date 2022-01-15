@@ -1,9 +1,9 @@
 from django.contrib import admin
-from main.models import CartItem, Product, Instance, Category, Brand, Review, Reply, Variant, Order, Message, Coupon 
+from main.models import CartItem, Product, Greeny, Category, Brand, Review, Reply, Variant, Order, Message, Coupon 
 
 
-@admin.register(Instance)
-class InstanceAdmin(admin.ModelAdmin):
+@admin.register(Greeny)
+class GreenyAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Category)

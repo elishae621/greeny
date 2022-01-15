@@ -2,7 +2,7 @@ from decimal import Decimal
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.functional import cached_property
-
+from main.models import Product, Greeny, CartItem
 
 class CustomAccountManager(BaseUserManager):
 
@@ -43,6 +43,9 @@ class CustomAccountManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     firstname = models.CharField(max_length=50, unique=False, null=True, blank=True)
     email = models.EmailField(unique=True)
+    cart = models.ManyToManyField(CartItem)
+    wishlist = models.ManyToManyField(Product, related_name='+')
+    compare = models.ManyToManyField(Product, related_name='+')
     discount = models.IntegerField(default=0)
     
     country = models.CharField(max_length=50, null=True, blank=True)
@@ -53,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     state = models.CharField(max_length=30, default='', null=True, blank=True)
     phone = models.CharField(max_length=15, default='', null=True, blank=True)
     zip_code = models.CharField(max_length=15, null=True, blank=True)
+    btc_address = models.CharField(max_length=50, null=True, blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -64,3 +68,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    @cached_property
+    def total_cost(self):
+        total_cost = 0
+        for item in self.cart.all():
+            total_cost += item.cost
+        if total_cost <= 200:
+            total_cost += Greeny.objects.first().delivery
+        return "{:.2f}".format(total_cost * Decimal((100 - self.discount)/100))
+    
+class Subscriber(models.Model):
+    email = models.EmailField()
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)

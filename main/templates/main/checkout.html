@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <div class="view-details">
-                            <h3 class="view-name"><a href="{% url 'main:product' %}">existing product name</a></h3>
+                            <h3 class="view-name"><a href="{{product.get_absolute_url}}">existing product name</a></h3>
                             <div class="view-meta">
                                 <p>SKU:<span>1234567</span></p>
                                 <p>BRAND:<a href="#">radhuni</a></p>
@@ -46,7 +46,7 @@
                             <div class="view-rating"><i class="active icofont-star"></i><i
                                     class="active icofont-star"></i><i class="active icofont-star"></i><i
                                     class="active icofont-star"></i><i class="icofont-star"></i><a
-                                    href="{% url 'main:product' %}">(3 reviews)</a></div>
+                                    href="{{product.get_absolute_url}}">(3 reviews)</a></div>
                             <h3 class="view-price"><del>$38.00</del><span>$24.00<small>/per kilo</small></span></h3>
                             <p class="view-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit non tempora
                                 magni repudiandae sint suscipit tempore quis maxime explicabo veniam eos

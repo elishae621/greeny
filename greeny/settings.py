@@ -55,6 +55,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # custom middlewares
+    'main.middleware.AddGreenyToAllContext',
 ]
 
 ROOT_URLCONF = 'greeny.urls'

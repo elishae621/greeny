@@ -13,7 +13,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'main:home' %}">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'main:shop' %}">shop grid</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'main:product' %}">product details</a></li>
+            <li class="breadcrumb-item"><a href="{{product.get_absolute_url}}">product details</a></li>
             <li class="breadcrumb-item"><a href="{% url 'main:checkout' %}">checkout</a></li>
             <li class="breadcrumb-item active" aria-current="page">invoice</li>
         </ol>

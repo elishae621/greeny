@@ -9,22 +9,10 @@
     <div class="row">
       <div class="col-md-12 col-lg-5">
         <div class="header-top-welcome">
-          <p>Welcome to Ecomart in Your Dream Online Store!</p>
+          <p>Welcome to Greeny, Your Dream Online Store!</p>
         </div>
       </div>
       <div class="col-md-5 col-lg-3">
-        <div class="header-top-select">
-          <div class="header-select"><i class="icofont-world"></i><select class="select">
-              <option value="english" selected>english</option>
-              <option value="bangali">bangali</option>
-              <option value="arabic">arabic</option>
-            </select></div>
-          <div class="header-select"><i class="icofont-money"></i><select class="select">
-              <option value="english" selected>dollar</option>
-              <option value="bangali">pound</option>
-              <option value="arabic">taka</option>
-            </select></div>
-        </div>
       </div>
       <div class="col-md-7 col-lg-4">
         <ul class="header-top-list">
@@ -43,8 +31,8 @@
             alt="user"></button><a href="{% url 'main:home' %}"><img src="{% static 'main/images/logo.png' %}" alt="logo"></a><button
           class="header-src"><i class="fas fa-search"></i></button></div><a href="{% url 'main:home' %}"
         class="header-logo"><img src="{% static 'main/images/logo.png' %}" alt="logo"></a><a href="{% url 'user:login' %}" class="header-widget"
-        title="My Account"><img src="{% static 'main/images/user.png' %}" alt="user"><span>join</span></a>
-      <form class="header-form"><input type="text" placeholder="Search anything..."><button><i
+        title="My Account"><img src="{% static 'main/images/user.png' %}" alt="user"><span>Join</span></a>
+      <form action="{% url 'main:search' %}" class="header-form"><input type="text" placeholder="Search anything..." name='key'><button><i
             class="fas fa-search"></i></button></form>
       <div class="header-widget-group"><a href="{% url 'main:compare' %}" class="header-widget" title="Compare List"><i
             class="fas fa-random"></i><sup>0</sup></a><a href="{% url 'main:wishlist' %}" class="header-widget"
@@ -74,7 +62,7 @@
                         <h5 class="megamenu-title">{{cat.name}}</h5>
                         <ul class="megamenu-list">
                           {% for product in cat.product_set.all %}
-                          <li><a href={{product.get_absolute_url}}>{{product}}</a></li>
+                          <li><a href={{product.get_absolute_url}}>{{product.name}}</a></li>
                           {% empty %}
                           <strong>No products in this category</strong>
                           {% endfor %}
@@ -92,10 +80,10 @@
           </ul>
           <div class="navbar-info-group">
             <div class="navbar-info"><i class="icofont-ui-touch-phone"></i>
-              <p><small>call us</small><span>(+880) 183 8288 389</span></p>
+              <p><small>call us</small><span>{{greeny.phone}}</span></p>
             </div>
             <div class="navbar-info"><i class="icofont-ui-email"></i>
-              <p><small>email us</small><span>support@greeny.com</span></p>
+              <p><small>email us</small><span>{{greeny.email}}</span></p>
             </div>
           </div>
         </div>
@@ -110,307 +98,102 @@
   </div>
   <ul class="category-list">
     {% for cat in categories %}
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-vegetable"></i><span>vegetables</span></a>
+    <li class="category-item"><a class="category-link dropdown-link" href=""><i
+          class="flaticon-vegetable"></i><span>{{cat.name}}</span></a>
       <ul class="dropdown-list">
-        <li><a href="#">asparagus</a></li>
-        <li><a href="#">broccoli</a></li>
-        <li><a href="#">carrot</a></li>
+        {% for product in cat.product_set.all %}
+        <li><a href="{{product.get_absolute_url}}">{{product.name}}</a></li>
+        {% empty %}
+        <strong>No products in this category</strong>
+        {% endfor %}
       </ul>
     </li>
     {% empty %}
     <strong>No product categories exist</strong>
     {% endfor %}
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-groceries"></i><span>groceries</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Grains & Bread</a></li>
-        <li><a href="#">Dairy & Eggs</a></li>
-        <li><a href="#">Oil & Fat</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-fruit"></i><span>fruits</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Apple</a></li>
-        <li><a href="#">Orange</a></li>
-        <li><a href="#">Strawberry</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-dairy-products"></i><span>dairy farm</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Egg</a></li>
-        <li><a href="#">milk</a></li>
-        <li><a href="#">butter</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i class="flaticon-crab"></i><span>sea
-          foods</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Lobster</a></li>
-        <li><a href="#">Octopus</a></li>
-        <li><a href="#">Shrimp</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-salad"></i><span>diet foods</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Salmon</a></li>
-        <li><a href="#">Potatoes</a></li>
-        <li><a href="#">Greens</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-dried-fruit"></i><span>dry foods</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">noodles</a></li>
-        <li><a href="#">Powdered milk</a></li>
-        <li><a href="#">nut & yeast</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-fast-food"></i><span>fast foods</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">mango</a></li>
-        <li><a href="#">plumsor</a></li>
-        <li><a href="#">raisins</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-cheers"></i><span>drinks</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Wine</a></li>
-        <li><a href="#">Juice</a></li>
-        <li><a href="#">Water</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-beverage"></i><span>coffee</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Cappuchino</a></li>
-        <li><a href="#">Espresso</a></li>
-        <li><a href="#">Latte</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-barbecue"></i><span>meats</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Meatball</a></li>
-        <li><a href="#">Sausage</a></li>
-        <li><a href="#">Poultry</a></li>
-      </ul>
-    </li>
-    <li class="category-item"><a class="category-link dropdown-link" href="#"><i
-          class="flaticon-fish"></i><span>fishes</span></a>
-      <ul class="dropdown-list">
-        <li><a href="#">Agujjim</a></li>
-        <li><a href="#">saltfish</a></li>
-        <li><a href="#">pazza</a></li>
-      </ul>
-    </li>
   </ul>
   <div class="category-footer">
-    <p>All Rights Reserved by <a href="#">Mironcoder</a></p>
+    <p>All Rights Reserved by <a href="{{greeny.link}}">{{greeny.owner}}</a></p>
   </div>
 </aside>
-<aside class="cart-sidebar">
+<aside class="cart-sidebar"> 
   <div class="cart-header">
-    <div class="cart-total"><i class="fas fa-shopping-basket"></i><span>total item (5)</span></div><button
+    <div class="cart-total"><i class="fas fa-shopping-basket"></i><span>total item ({{user.cart.all|length}})</span></div><button
       class="cart-close"><i class="icofont-close"></i></button>
   </div>
   <ul class="cart-list">
+    {% for item in user.cart.all %}
     <li class="cart-item">
-      <div class="cart-media"><a href="#"><img src="{% static 'main/images/product/01.jpg' %}" alt="product"></a><button
+      <div class="cart-media"><a href="{{item.product.get_absolute_url}}"><img src="{{item.product.image.url}}" alt="product"></a><button
           class="cart-delete"><i class="far fa-trash-alt"></i></button></div>
       <div class="cart-info-group">
         <div class="cart-info">
-          <h6><a href="{% url 'main:product' %}">existing product name</a></h6>
-          <p>Unit Price - $8.75</p>
+          <h6><a href="{{item.product.get_absolute_url}}">{{item.product.name}}</a></h6>
+          <p>Unit Price - ${{item.variant.price}}</p>
         </div>
         <div class="cart-action-group">
           <div class="product-action"><button class="action-minus" title="Quantity Minus"><i
                 class="icofont-minus"></i></button><input class="action-input" title="Quantity Number"
-              type="text" name="quantity" value="1"><button class="action-plus" title="Quantity Plus"><i
+              type="text" name="quantity" value="{{item.quantity}}"><button class="action-plus" title="Quantity Plus"><i
                 class="icofont-plus"></i></button></div>
-          <h6>$56.98</h6>
+          <h6>${{item.cost}}</h6>
         </div>
       </div>
     </li>
-    <li class="cart-item">
-      <div class="cart-media"><a href="#"><img src="{% static 'main/images/product/02.jpg' %}" alt="product"></a><button
-          class="cart-delete"><i class="far fa-trash-alt"></i></button></div>
-      <div class="cart-info-group">
-        <div class="cart-info">
-          <h6><a href="{% url 'main:product' %}">existing product name</a></h6>
-          <p>Unit Price - $8.75</p>
-        </div>
-        <div class="cart-action-group">
-          <div class="product-action"><button class="action-minus" title="Quantity Minus"><i
-                class="icofont-minus"></i></button><input class="action-input" title="Quantity Number"
-              type="text" name="quantity" value="1"><button class="action-plus" title="Quantity Plus"><i
-                class="icofont-plus"></i></button></div>
-          <h6>$56.98</h6>
-        </div>
-      </div>
-    </li>
-    <li class="cart-item">
-      <div class="cart-media"><a href="#"><img src="{% static 'main/images/product/03.jpg' %}" alt="product"></a><button
-          class="cart-delete"><i class="far fa-trash-alt"></i></button></div>
-      <div class="cart-info-group">
-        <div class="cart-info">
-          <h6><a href="{% url 'main:product' %}">existing product name</a></h6>
-          <p>Unit Price - $8.75</p>
-        </div>
-        <div class="cart-action-group">
-          <div class="product-action"><button class="action-minus" title="Quantity Minus"><i
-                class="icofont-minus"></i></button><input class="action-input" title="Quantity Number"
-              type="text" name="quantity" value="1"><button class="action-plus" title="Quantity Plus"><i
-                class="icofont-plus"></i></button></div>
-          <h6>$56.98</h6>
-        </div>
-      </div>
-    </li>
-    <li class="cart-item">
-      <div class="cart-media"><a href="#"><img src="{% static 'main/images/product/04.jpg' %}" alt="product"></a><button
-          class="cart-delete"><i class="far fa-trash-alt"></i></button></div>
-      <div class="cart-info-group">
-        <div class="cart-info">
-          <h6><a href="{% url 'main:product' %}">existing product name</a></h6>
-          <p>Unit Price - $8.75</p>
-        </div>
-        <div class="cart-action-group">
-          <div class="product-action"><button class="action-minus" title="Quantity Minus"><i
-                class="icofont-minus"></i></button><input class="action-input" title="Quantity Number"
-              type="text" name="quantity" value="1"><button class="action-plus" title="Quantity Plus"><i
-                class="icofont-plus"></i></button></div>
-          <h6>$56.98</h6>
-        </div>
-      </div>
-    </li>
-    <li class="cart-item">
-      <div class="cart-media"><a href="#"><img src="{% static 'main/images/product/05.jpg' %}" alt="product"></a><button
-          class="cart-delete"><i class="far fa-trash-alt"></i></button></div>
-      <div class="cart-info-group">
-        <div class="cart-info">
-          <h6><a href="{% url 'main:product' %}">existing product name</a></h6>
-          <p>Unit Price - $8.75</p>
-        </div>
-        <div class="cart-action-group">
-          <div class="product-action"><button class="action-minus" title="Quantity Minus"><i
-                class="icofont-minus"></i></button><input class="action-input" title="Quantity Number"
-              type="text" name="quantity" value="1"><button class="action-plus" title="Quantity Plus"><i
-                class="icofont-plus"></i></button></div>
-          <h6>$56.98</h6>
-        </div>
-      </div>
-    </li>
+    {% empty %}
+    <strong>No product in your cart yet</strong>
   </ul>
   <div class="cart-footer"><button class="coupon-btn">Do you have a coupon code?</button>
     <form class="coupon-form"><input type="text" placeholder="Enter your coupon code"><button
         type="submit"><span>apply</span></button></form><a class="cart-checkout-btn" href="{% url 'main:checkout' %}"><span
-        class="checkout-label">Proceed to Checkout</span><span class="checkout-price">$369.78</span></a>
+        class="checkout-label">Proceed to Checkout</span><span class="checkout-price">${{total}}</span></a>
   </div>
 </aside>
 <aside class="nav-sidebar">
-  <div class="nav-header"><a href="#"><img src="{% static 'main/images/logo.png' %}" alt="logo"></a><button class="nav-close"><i
+  <div class="nav-header"><a href="{% url 'main:home' %}"><img src="{% static 'main/images/logo.png' %}" alt="logo"></a><button class="nav-close"><i
         class="icofont-close"></i></button></div>
   <div class="nav-content">
-    <div class="nav-btn"><a href="{% url 'user:login' %}" class="btn btn-inline"><i class="fa fa-unlock-alt"></i><span>join
-          here</span></a></div>
-    <div class="nav-select-group">
-      <div class="nav-select"><i class="icofont-world"></i><select class="select">
-          <option value="english" selected>English</option>
-          <option value="bangali">Bangali</option>
-          <option value="arabic">Arabic</option>
-        </select></div>
-      <div class="nav-select"><i class="icofont-money"></i><select class="select">
-          <option value="english" selected>Doller</option>
-          <option value="bangali">Pound</option>
-          <option value="arabic">Taka</option>
-        </select></div>
-    </div>
+    <div class="nav-btn"><a href="{% url 'user:login' %}" class="btn btn-inline"><i class="fa fa-unlock-alt"></i><span>Join
+          Here</span></a></div>
     <ul class="nav-list">
-      <li><a class="nav-link dropdown-link" href="#"><i class="icofont-home"></i>Home</a>
+      <li><a class="nav-link" href="{% url 'main:home' %}"><i class="icofont-home"></i>Home</a></li>
+      <li><a class="nav-link" href="{% url 'main:home' %}"><i class="icofont-food-cart"></i>Shop</a></li>
+      <li><a class="nav-link dropdown-link" href=""><i class="icofont-bag-alt"></i>My Account</a>
         <ul class="dropdown-list">
-          <li><a href="{% url 'main:home' %}">Home grid</a></li>
-          <li><a href="{% url 'main:home' %}">Home index</a></li>
-          <li><a href="{% url 'main:home' %}">Home classic</a></li>
-          <li><a href="{% url 'main:home' %}">Home standard</a></li>
-          <li><a href="{% url 'main:home' %}">Home category</a></li>
+          <li><a href="{% url 'user:profile' %}">Profile</a></li>
+          <li><a href="{% url 'main:wallet' %}">Wallet</a></li>
+          <li><a href="{% url 'main:wishlist' %}">Wishlist</a></li>
+          <li><a href="{% url 'main:orders' %}">Order History</a></li>
         </ul>
       </li>
-      <li><a class="nav-link dropdown-link" href="#"><i class="icofont-food-cart"></i>shop</a>
-        <ul class="dropdown-list">
-          <li><a href="{% url 'main:shop' %}">shop 5 column</a></li>
-          <li><a href="{% url 'main:shop' %}">shop 4 column</a></li>
-          <li><a href="{% url 'main:shop' %}">shop 3 column</a></li>
-          <li><a href="{% url 'main:shop' %}">shop 2 column</a></li>
-          <li><a href="{% url 'main:shop' %}">shop 1 column</a></li>
-        </ul>
-      </li>
-      <li><a class="nav-link dropdown-link" href="#"><i class="icofont-page"></i>product</a>
-        <ul class="dropdown-list">
-          <li><a href="{% url 'main:product' %}">product tab</a></li>
-          <li><a href="{% url 'main:product' %}">product grid</a></li>
-          <li><a href="{% url 'main:product' %}">product video</a></li>
-          <li><a href="{% url 'main:product' %}">product simple</a></li>
-        </ul>
-      </li>
-      <li><a class="nav-link dropdown-link" href="#"><i class="icofont-bag-alt"></i>my account</a>
-        <ul class="dropdown-list">
-          <li><a href="{% url 'user:profile' %}">profile</a></li>
-          <li><a href="{% url 'main:wallet' %}">wallet</a></li>
-          <li><a href="{% url 'main:wishlist' %}">wishlist</a></li>
-          <li><a href="{% url 'main:compare' %}">compare</a></li>
-          <li><a href="{% url 'main:checkout' %}">checkout</a></li>
-          <li><a href="{% url 'main:orders' %}">order history</a></li>
-          <li><a href="{% url 'main:invoice' %}">order invoice</a></li>
-        </ul>
-      </li>
-      <li><a class="nav-link dropdown-link" href="#"><i class="icofont-lock"></i>authentic</a>
-        <ul class="dropdown-list">
-          <li><a href="{% url 'user:login' %}">login</a></li>
-          <li><a href="{% url 'user:register' %}">register</a></li>
-          <li><a href="{% url 'user:reset-password' %}">reset password</a></li>
-          <li><a href="{% url 'user:change-password' %}">change password</a></li>
-        </ul>
-      </li>
-      <li><a class="nav-link dropdown-link" href="#"><i class="icofont-book-alt"></i>blogs</a>
-        <ul class="dropdown-list">
-          <li><a href="{% url 'blog:list' %}">blog grid</a></li>
-          <li><a href="{% url 'blog:list' %}">blog standard</a></li>
-          <li><a href="{% url 'blog:detail' %}">blog details</a></li>
-          <li><a href="{% url 'blog:author' %}">blog author</a></li>
-        </ul>
-      </li>
-      <li><a class="nav-link" href="{% url 'main:offer' %}"><i class="icofont-sale-discount"></i>offers</a></li>
-      <li><a class="nav-link" href="{% url 'main:about' %}"><i class="icofont-info-circle"></i>about us</a></li>
-      <li><a class="nav-link" href="{% url 'main:faq' %}"><i class="icofont-support-faq"></i>need help</a></li>
-      <li><a class="nav-link" href="{% url 'main:contact' %}"><i class="icofont-contacts"></i>contact us</a></li>
-      <li><a class="nav-link" href="{% url 'main:privacy' %}"><i class="icofont-warning"></i>privacy policy</a></li>
-      <li><a class="nav-link" href="{% url 'main:coming-soon' %}"><i class="icofont-options"></i>coming soon</a></li>
-      <li><a class="nav-link" href="{% url 'user:login' %}"><i class="icofont-logout"></i>logout</a></li>
+      <li><a class="nav-link" href="{% url 'blog:list' %}"><i class="icofont-book-alt"></i>Blogs</a></li>
+      <li><a class="nav-link" href="{% url 'main:offer' %}"><i class="icofont-sale-discount"></i>Promo Offers</a></li>
+      <li><a class="nav-link" href="{% url 'main:about' %}"><i class="icofont-info-circle"></i>About us</a></li>
+      <li><a class="nav-link" href="{% url 'main:faq' %}"><i class="icofont-support-faq"></i>Need Help</a></li>
+      <li><a class="nav-link" href="{% url 'main:contact' %}"><i class="icofont-contacts"></i>Contact us</a></li>
+      <li><a class="nav-link" href="{% url 'main:privacy' %}"><i class="icofont-warning"></i>Privacy Policy</a></li>
+      <li><a class="nav-link" href=""><i class="icofont-logout"></i>logout</a></li>
     </ul>
     <div class="nav-info-group">
       <div class="nav-info"><i class="icofont-ui-touch-phone"></i>
-        <p><small>call us</small><span>(+880) 183 8288 389</span></p>
+        <p><small>call us</small><span>{{greeny.phone}}</span></p>
       </div>
       <div class="nav-info"><i class="icofont-ui-email"></i>
-        <p><small>email us</small><span>support@greeny.com</span></p>
+        <p><small>email us</small><span>{{greeny.email}}</span></p>
       </div>
     </div>
     <div class="nav-footer">
-      <p>All Rights Reserved by <a href="#">Mironcoder</a></p>
+      <p>All Rights Reserved by <a href="{{greeny.link}}">{{greeny.owner}}</a></p>
     </div>
   </div>
 </aside>
 <div class="mobile-menu"><a href="{% url 'main:home' %}" title="Home Page"><i class="fas fa-home"></i><span>Home</span></a><button
-    class="cate-btn" title="Category List"><i class="fas fa-list"></i><span>category</span></button><button
+    class="cate-btn" title="Category List"><i class="fas fa-list"></i><span>Category</span></button><button
     class="cart-btn" title="Cartlist"><i
-      class="fas fa-shopping-basket"></i><span>cartlist</span><sup>9+</sup></button><a href="{% url 'main:wishlist' %}"
-    title="Wishlist"><i class="fas fa-heart"></i><span>wishlist</span><sup>0</sup></a><a href="{% url 'main:compare' %}"
-    title="Compare List"><i class="fas fa-random"></i><span>compare</span><sup>0</sup></a>
+      class="fas fa-shopping-basket"></i><span>cartlist</span><sup>{{user.cart.all|length}}</sup></button><a href="{% url 'main:wishlist' %}"
+    title="Wishlist"><i class="fas fa-heart"></i><span>wishlist</span><sup>{{user.wishlist.all|length}}</sup></a><a href="{% url 'main:compare' %}"
+    title="Compare List"><i class="fas fa-random"></i><span>compare</span><sup>{{user.compare.all|length}}
+    </sup></a>
 </div>
 
 
@@ -541,7 +324,7 @@
       <div class="col-12">
         <div class="footer-bottom">
           <p class="footer-copytext">&copy; All Copyrights Reserved by <a target="_blank"
-              href="https://themeforest.net/user/mironcoder">Mironcoder</a></p>
+              href="https://themeforest.net/user/Surge">Surge</a></p>
           <div class="footer-card"><a href="#"><img src="{% static 'main/images/payment/jpg/01.jpg' %}" alt="payment"></a><a
               href="#"><img src="{% static 'main/images/payment/jpg/02.jpg' %}" alt="payment"></a><a href="#"><img
                 src="{% static 'main/images/payment/jpg/03.jpg' %}" alt="payment"></a><a href="#"><img

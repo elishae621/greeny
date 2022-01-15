@@ -35,13 +35,14 @@ def compress(image):
     return new_image
 
 
-class Instance(models.Model):
+class Greeny(models.Model):
     delivery = models.IntegerField(default=50) 
     phone = models.CharField(max_length=50, default='(+234) 902 515 9360')
     email = models.EmailField(default='greeny@elishae.me')
+    link = models.URLField(default='https://www.elishae.me/')
+    owner = models.CharField(max_length=20, default='Surge')
 
     class Meta:
-        verbose_name = "Greeny"
         verbose_name_plural = "Greeny"
 
     def __str__(self):

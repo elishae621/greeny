@@ -7,9 +7,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="mironcoder">
-    <meta name="email" content="mironcoder@gmail.com">
-    <meta name="profile" content="https://themeforest.net/user/mironcoder">
+    <meta name="author" content="Surge">
+    <meta name="email" content="Surge@gmail.com">
+    <meta name="profile" content="https://themeforest.net/user/Surge">
     <meta name="template" content="greeny">
     <meta name="title" content="greeny - Ecommerce Food Store">
     <meta name="keywords"
@@ -30,6 +30,12 @@
 </head>
 
 <body {{ body_tag_text }}>
+
+    
+    <form action="{% url 'user:logout' %}" method='POST' class='logout-form d-none'>
+        {% csrf_token %}
+        <input type='submit' class='d-none'>
+    </form>
 
     {% block origin_content %}{% endblock origin_content %}
 

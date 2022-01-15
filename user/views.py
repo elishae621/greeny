@@ -1,4 +1,7 @@
-from django.views.generic import TemplateView 
+from django.views.generic import TemplateView, View 
+from django.contrib.auth import authenticate, logout 
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse  
 
 
 class ChangePasswordView(TemplateView):
@@ -48,3 +51,7 @@ class ResetPasswordView(TemplateView):
         context["title"] = "Greeny - Reset Password"
         return context
     
+class LogoutView(View):
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return HttpResponseRedirect(reverse('main:home'))
