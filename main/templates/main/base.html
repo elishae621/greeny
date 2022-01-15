@@ -3,7 +3,7 @@
 
 {% block origin_content %}
 
-<div class="backdrop"></div><a class="backtop fas fa-arrow-up" href="#"></a>
+<div class="backdrop"></div><a class="backtop fas fa-arrow-up" href=""></a>
 <div class="header-top">
   <div class="container">
     <div class="row">
@@ -35,11 +35,11 @@
       <form action="{% url 'main:search' %}" class="header-form"><input type="text" placeholder="Search anything..." name='key'><button><i
             class="fas fa-search"></i></button></form>
       <div class="header-widget-group"><a href="{% url 'main:compare' %}" class="header-widget" title="Compare List"><i
-            class="fas fa-random"></i><sup>0</sup></a><a href="{% url 'main:wishlist' %}" class="header-widget"
-          title="Wishlist"><i class="fas fa-heart"></i><sup>0</sup></a><button
+            class="fas fa-random"></i><sup>{{user.compare.all|length}}</sup></a><a href="{% url 'main:wishlist' %}" class="header-widget"
+          title="Wishlist"><i class="fas fa-heart"></i><sup>{{user.wishlist.all|length}}</sup></a><button
           class="header-widget header-cart" title="Cartlist"><i
-            class="fas fa-shopping-basket"></i><sup>9+</sup><span>total
-            price<small>$345.00</small></span></button></div>
+            class="fas fa-shopping-basket"></i><sup>{{user.cart.all|length}}</sup><span>total
+            price<small>${{total}}</small></span></button></div>
     </div>
   </div>
 </header>
@@ -52,7 +52,7 @@
             <li class="navbar-item"><a class="navbar-link" href="{% url 'main:home' %}">Home</a></li>
             <li class="navbar-item"><a class="navbar-link" href="{% url 'main:shop' %}">shop</a></li>
             <li class="navbar-item dropdown-megamenu"><a class="navbar-link dropdown-arrow"
-                href="#">category</a>
+                href="">category</a>
               <div class="megamenu">
                 <div class="container megamenu-scroll">
                   <div class="row row-cols-5">
@@ -91,7 +91,7 @@
     </div>
   </div>
 </nav>
-<aside class="category-sidebar">
+<aside class="category-sidebar" aria-label='catogory-sidebar'>
   <div class="category-header">
     <h4 class="category-title"><i class="fas fa-align-left"></i><span>categories</span></h4><button
       class="category-close"><i class="icofont-close"></i></button>
@@ -116,7 +116,7 @@
     <p>All Rights Reserved by <a href="{{greeny.link}}">{{greeny.owner}}</a></p>
   </div>
 </aside>
-<aside class="cart-sidebar"> 
+<aside class="cart-sidebar" aria-label="cart-sidebar"> 
   <div class="cart-header">
     <div class="cart-total"><i class="fas fa-shopping-basket"></i><span>total item ({{user.cart.all|length}})</span></div><button
       class="cart-close"><i class="icofont-close"></i></button>
@@ -142,6 +142,7 @@
     </li>
     {% empty %}
     <strong>No product in your cart yet</strong>
+    {% endfor %}
   </ul>
   <div class="cart-footer"><button class="coupon-btn">Do you have a coupon code?</button>
     <form class="coupon-form"><input type="text" placeholder="Enter your coupon code"><button
@@ -149,7 +150,7 @@
         class="checkout-label">Proceed to Checkout</span><span class="checkout-price">${{total}}</span></a>
   </div>
 </aside>
-<aside class="nav-sidebar">
+<aside class="nav-sidebar" aria-label="nav-sidebar">
   <div class="nav-header"><a href="{% url 'main:home' %}"><img src="{% static 'main/images/logo.png' %}" alt="logo"></a><button class="nav-close"><i
         class="icofont-close"></i></button></div>
   <div class="nav-content">
@@ -261,15 +262,15 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6 col-xl-3">
-        <div class="footer-widget"><a class="footer-logo" href="#"><img src="{% static 'main/images/logo.png' %}" alt="logo"></a>
+        <div class="footer-widget"><a class="footer-logo" href="{% url 'main:home' %}"><img src="{% static 'main/images/logo.png' %}" alt="logo"></a>
           <p class="footer-desc">Adipisci asperiores ipsum ipsa repellat consequatur repudiandae quisquam
             assumenda dolor perspiciatis sit ipsum dolor amet.</p>
           <ul class="footer-social">
-            <li><a class="icofont-facebook" href="#"></a></li>
-            <li><a class="icofont-twitter" href="#"></a></li>
-            <li><a class="icofont-linkedin" href="#"></a></li>
-            <li><a class="icofont-instagram" href="#"></a></li>
-            <li><a class="icofont-pinterest" href="#"></a></li>
+            <li><a class="icofont-facebook" href="{{greeny.facebook}}"></a></li>
+            <li><a class="icofont-twitter" href="{{greeny.twitter}}"></a></li>
+            <li><a class="icofont-linkedin" href="{{greeny.linkedin}}"></a></li>
+            <li><a class="icofont-instagram" href="{{greeny.instagram}}"></a></li>
+            <li><a class="icofont-pinterest" href="{{greeny.pinterest}}"></a></li>
           </ul>
         </div>
       </div>
@@ -278,13 +279,13 @@
           <h3 class="footer-title">contact us</h3>
           <ul class="footer-contact">
             <li><i class="icofont-ui-email"></i>
-              <p><span>support@greeny.com</span><span>carrer@greeny.com</span></p>
+              <p><span>{{greeny.email}}</span></p>
             </li>
             <li><i class="icofont-ui-touch-phone"></i>
-              <p><span>+120 279 532 13</span><span>+120 279 532 14</span></p>
+              <p><span>{{greeny.phone}}</span></p>
             </li>
             <li><i class="icofont-location-pin"></i>
-              <p>1Hd- 50, 010 Avenue, NY 90001 United States</p>
+              <p>{{greeny.address}}</p>
             </li>
           </ul>
         </div>
@@ -294,18 +295,18 @@
           <h3 class="footer-title">quick Links</h3>
           <div class="footer-links">
             <ul>
-              <li><a href="#">My Account</a></li>
-              <li><a href="#">Order History</a></li>
-              <li><a href="#">Order Tracking</a></li>
-              <li><a href="#">Best Seller</a></li>
-              <li><a href="#">New Arrivals</a></li>
+              <li><a href="{% url 'user:profile' %}">My Account</a></li>
+              <li><a href="{% url 'main:orders' %}">Order History</a></li>
+              <li><a href="{% url 'main:coming-soon' %}">Order Tracking</a></li>
+              <li><a href="{% url 'main:shop' %}">Best Seller</a></li>
+              <li><a href="{% url 'main:shop' %}">New Arrivals</a></li>
             </ul>
             <ul>
-              <li><a href="#">Location</a></li>
-              <li><a href="#">Affiliates</a></li>
-              <li><a href="#">Contact</a></li>
-              <li><a href="#">Carrer</a></li>
-              <li><a href="#">Faq</a></li>
+              <li><a href="https://maps.google.com">Location</a></li>
+              <li><a href="{% url 'main:brands' %}">Affiliates</a></li>
+              <li><a href="{% url 'main:contact' %}">Contact</a></li>
+              <li><a href="{% url 'main:about' %}">About Us</a></li>
+              <li><a href="{% url 'main:faq' %}">Faq</a></li>
             </ul>
           </div>
         </div>
@@ -315,8 +316,8 @@
           <h3 class="footer-title">Download App</h3>
           <p class="footer-desc">Lorem ipsum dolor sit amet tenetur dignissimos ipsum eligendi autem
             obcaecati minus ducimus totam reprehenderit exercitationem!</p>
-          <div class="footer-app"><a href="#"><img src="{% static 'main/images/google-store.png' %}" alt="google"></a><a
-              href="#"><img src="{% static 'main/images/app-store.png' %}" alt="app"></a></div>
+          <div class="footer-app"><a href="{% url 'main:coming-soon' %}"><img src="{% static 'main/images/google-store.png' %}" alt="google"></a><a
+              href="{% url 'main:coming-soon' %}"><img src="{% static 'main/images/app-store.png' %}" alt="app"></a></div>
         </div>
       </div>
     </div>
@@ -324,10 +325,10 @@
       <div class="col-12">
         <div class="footer-bottom">
           <p class="footer-copytext">&copy; All Copyrights Reserved by <a target="_blank"
-              href="https://themeforest.net/user/Surge">Surge</a></p>
-          <div class="footer-card"><a href="#"><img src="{% static 'main/images/payment/jpg/01.jpg' %}" alt="payment"></a><a
-              href="#"><img src="{% static 'main/images/payment/jpg/02.jpg' %}" alt="payment"></a><a href="#"><img
-                src="{% static 'main/images/payment/jpg/03.jpg' %}" alt="payment"></a><a href="#"><img
+              href="{{greeny.link}}">{{greeny.owner}}</a></p>
+          <div class="footer-card"><a href="https://paypal.com"><img src="{% static 'main/images/payment/jpg/01.jpg' %}" alt="payment"></a><a
+              href="https://maestro.com"><img src="{% static 'main/images/payment/jpg/02.jpg' %}" alt="payment"></a><a href="https://discover.com"><img
+                src="{% static 'main/images/payment/jpg/03.jpg' %}" alt="payment"></a><a href="https://visapayment.com"><img
                 src="{% static 'main/images/payment/jpg/04.jpg' %}" alt="payment"></a></div>
         </div>
       </div>

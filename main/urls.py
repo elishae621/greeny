@@ -17,9 +17,10 @@ urlpatterns = [
     path('offer/', views.OfferView.as_view(), name='offer'),
     path('orders/', views.OrderListView.as_view(), name='orders'),
     path('privacy/', views.PrivacyView.as_view(), name='privacy'),
+    path('search/', views.SearchView.as_view(), name='search'),
     path('shop/', views.ShopView.as_view(), name='shop'),
     path('shop/<slug:slug>/', views.ProductDetailView.as_view(), name='product'),
-    path('subscribe/', views.SubscribeView.as_view(), name='subscribe')
+    path('subscribe/', views.SubscribeView.as_view(), name='subscribe'),
     path('wallet/', views.WalletView.as_view(), name='wallet'),
     path('wishlist/', views.WishlistView.as_view(), name='wishlist'),
 ]

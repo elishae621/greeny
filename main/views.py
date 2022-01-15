@@ -91,8 +91,6 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Classic Home - Greeny"
         context["page"] = 'home'
-        context['categories'] = Category.objects.all()
-        context['products'] = Product.objects.all()
         return context
     
     

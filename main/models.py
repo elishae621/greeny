@@ -39,8 +39,14 @@ class Greeny(models.Model):
     delivery = models.IntegerField(default=50) 
     phone = models.CharField(max_length=50, default='(+234) 902 515 9360')
     email = models.EmailField(default='greeny@elishae.me')
-    link = models.URLField(default='https://www.elishae.me/')
+    address = models.CharField(max_length=200, default='1Hd- 50, 010 Avenue, NY 90001 United States')
+    link = models.URLField(default='https://elishae.me/')
     owner = models.CharField(max_length=20, default='Surge')
+    facebook = models.URLField(default='https://facebook.com')
+    twitter = models.URLField(default='https://twitter.com')
+    linkedin = models.URLField(default='https://linkedIn.com')
+    instagram = models.URLField(default='https://instagram.com')
+    interest = models.URLField(default='https://pinterest.com')
 
     class Meta:
         verbose_name_plural = "Greeny"
