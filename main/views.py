@@ -1,8 +1,11 @@
 from django.views.generic import TemplateView 
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
+from django.http.response import JsonResponse 
 from django.shortcuts import render
-from main.models import Category, Product 
+from main.models import Category, Product
+from user.models import Subscriber 
 
 def error_404(request, exception):
     data = {}
@@ -164,6 +167,21 @@ class ShopView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Greeny - Shop"
         return context
+    
+class SubscribeView(CreateView):
+    model = Subscriber
+    
+    def form_valid(self, form):
+        return JsonResponse({
+            'ok': True,
+            'message': 'You have been subscribed!'
+        })
+        
+    def form_invalid(self, form):
+        return JsonResponse({
+            'ok': False,
+            'message': 'You are already a subscriber!'
+        })
     
 class WalletView(TemplateView):
     template_name = 'main/wallet.html'
