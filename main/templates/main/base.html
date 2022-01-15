@@ -20,7 +20,7 @@
               <option value="arabic">arabic</option>
             </select></div>
           <div class="header-select"><i class="icofont-money"></i><select class="select">
-              <option value="english" selected>doller</option>
+              <option value="english" selected>dollar</option>
               <option value="bangali">pound</option>
               <option value="arabic">taka</option>
             </select></div>
@@ -61,226 +61,34 @@
       <div class="col-lg-12">
         <div class="navbar-content">
           <ul class="navbar-list">
-            <li class="navbar-item dropdown"><a class="navbar-link dropdown-arrow" href="#">home</a>
-              <ul class="dropdown-position-list">
-                <li><a href="{% url 'main:home' %}">Home grid</a></li>
-                <li><a href="{% url 'main:home' %}">Home index</a></li>
-                <li><a href="{% url 'main:home' %}">Home classic</a></li>
-                <li><a href="{% url 'main:home' %}">Home standard</a></li>
-                <li><a href="{% url 'main:home' %}">Home category</a></li>
-              </ul>
-            </li>
-            <li class="navbar-item dropdown-megamenu"><a class="navbar-link dropdown-arrow"
-                href="#">shop</a>
-              <div class="megamenu">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">shop pages</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="{% url 'main:shop' %}">shop 5 column</a></li>
-                          <li><a href="{% url 'main:shop' %}">shop 4 column</a></li>
-                          <li><a href="{% url 'main:shop' %}">shop 3 column</a></li>
-                          <li><a href="{% url 'main:shop' %}">shop 2 column</a></li>
-                          <li><a href="{% url 'main:shop' %}">shop 1 column</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">product pages</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="{% url 'main:product' %}">product single tab</a></li>
-                          <li><a href="{% url 'main:product' %}">product single grid</a></li>
-                          <li><a href="{% url 'main:product' %}">product single video</a></li>
-                          <li><a href="{% url 'main:product' %}">product single simple</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">user action</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="{% url 'main:wishlist' %}">wishlist</a></li>
-                          <li><a href="{% url 'main:compare' %}">compare</a></li>
-                          <li><a href="{% url 'main:checkout' %}">checkout</a></li>
-                          <li><a href="{% url 'main:orders' %}">order history</a></li>
-                          <li><a href="{% url 'main:invoice' %}">order invoice</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">other pages</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="{% url 'main:categories' %}">all Category</a></li>
-                          <li><a href="{% url 'main:brands' %}">brand list</a></li>
-                          <li><a href="{% url 'main:brand' %}">brand single</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
+            <li class="navbar-item"><a class="navbar-link" href="{% url 'main:home' %}">Home</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="{% url 'main:shop' %}">shop</a></li>
             <li class="navbar-item dropdown-megamenu"><a class="navbar-link dropdown-arrow"
                 href="#">category</a>
               <div class="megamenu">
                 <div class="container megamenu-scroll">
                   <div class="row row-cols-5">
+                    {% for cat in categories %}
                     <div class="col">
                       <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">vegetables</h5>
+                        <h5 class="megamenu-title">{{cat.name}}</h5>
                         <ul class="megamenu-list">
-                          <li><a href="#">carrot</a></li>
-                          <li><a href="#">broccoli</a></li>
-                          <li><a href="#">asparagus</a></li>
-                          <li><a href="#">cauliflower</a></li>
-                          <li><a href="#">eggplant</a></li>
+                          {% for product in cat.product_set.all %}
+                          <li><a href={{product.get_absolute_url}}>{{product}}</a></li>
+                          {% empty %}
+                          <strong>No products in this category</strong>
+                          {% endfor %}
                         </ul>
                       </div>
                     </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">fruits</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">Apple</a></li>
-                          <li><a href="#">orange</a></li>
-                          <li><a href="#">banana</a></li>
-                          <li><a href="#">strawberrie</a></li>
-                          <li><a href="#">watermelon</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">dairy farms</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">Butter</a></li>
-                          <li><a href="#">Cheese</a></li>
-                          <li><a href="#">Milk</a></li>
-                          <li><a href="#">Eggs</a></li>
-                          <li><a href="#">cream</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">seafoods</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">Lobster</a></li>
-                          <li><a href="#">Octopus</a></li>
-                          <li><a href="#">Shrimp</a></li>
-                          <li><a href="#">Halabos</a></li>
-                          <li><a href="#">Maeuntang</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">diet foods</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">Salmon</a></li>
-                          <li><a href="#">Avocados</a></li>
-                          <li><a href="#">Leafy Greens</a></li>
-                          <li><a href="#">Boiled Potatoes</a></li>
-                          <li><a href="#">Cottage Cheese</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">fast foods</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">burger</a></li>
-                          <li><a href="#">milkshake</a></li>
-                          <li><a href="#">sandwich</a></li>
-                          <li><a href="#">doughnut</a></li>
-                          <li><a href="#">pizza</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">drinks</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">cocktail</a></li>
-                          <li><a href="#">hard soda</a></li>
-                          <li><a href="#">shampain</a></li>
-                          <li><a href="#">Wine</a></li>
-                          <li><a href="#">barley</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">meats</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">Meatball</a></li>
-                          <li><a href="#">Sausage</a></li>
-                          <li><a href="#">Poultry</a></li>
-                          <li><a href="#">chicken</a></li>
-                          <li><a href="#">Cows</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">fishes</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">scads</a></li>
-                          <li><a href="#">pomfret</a></li>
-                          <li><a href="#">groupers</a></li>
-                          <li><a href="#">anchovy</a></li>
-                          <li><a href="#">mackerel</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="megamenu-wrap">
-                        <h5 class="megamenu-title">dry foods</h5>
-                        <ul class="megamenu-list">
-                          <li><a href="#">noodles</a></li>
-                          <li><a href="#">Powdered milk</a></li>
-                          <li><a href="#">nut & yeast</a></li>
-                          <li><a href="#">almonds</a></li>
-                          <li><a href="#">pumpkin</a></li>
-                        </ul>
-                      </div>
-                    </div>
+                    {% empty %}
+                    <strong>No product categories exist</strong>
+                    {% endfor %}
                   </div>
                 </div>
               </div>
             </li>
-            <li class="navbar-item dropdown"><a class="navbar-link dropdown-arrow" href="#">pages</a>
-              <ul class="dropdown-position-list">
-                <li><a href="{% url 'main:faq' %}">faqs</a></li>
-                <li><a href="{% url 'main:offer' %}">offers</a></li>
-                <li><a href="{% url 'user:profile' %}">my profile</a></li>
-                <li><a href="{% url 'main:wallet' %}">my wallet</a></li>
-                <li><a href="{% url 'main:about' %}">about us</a></li>
-                <li><a href="{% url 'main:contact' %}">contact us</a></li>
-                <li><a href="{% url 'main:privacy' %}">privacy policy</a></li>
-                <li><a href="{% url 'main:coming-soon' %}">coming soon</a></li>
-              </ul>
-            </li>
-            <li class="navbar-item dropdown"><a class="navbar-link dropdown-arrow" href="#">authentic</a>
-              <ul class="dropdown-position-list">
-                <li><a href="{% url 'user:login' %}">login</a></li>
-                <li><a href="{% url 'user:register' %}">register</a></li>
-                <li><a href="{% url 'user:reset-password' %}">reset password</a></li>
-                <li><a href="{% url 'user:change-password' %}">change password</a></li>
-              </ul>
-            </li>
-            <li class="navbar-item dropdown"><a class="navbar-link dropdown-arrow" href="#">blogs</a>
-              <ul class="dropdown-position-list">
-                <li><a href="{% url 'blog:list' %}">blog grid</a></li>
-                <li><a href="{% url 'blog:list' %}">blog standard</a></li>
-                <li><a href="{% url 'blog:detail' %}">blog details</a></li>
-                <li><a href="{% url 'blog:author' %}">blog author</a></li>
-              </ul>
-            </li>
+            <li class="navbar-item"><a class="navbar-link" href="{% url 'blog:list' %}">blogs</a></li>
           </ul>
           <div class="navbar-info-group">
             <div class="navbar-info"><i class="icofont-ui-touch-phone"></i>
@@ -301,6 +109,7 @@
       class="category-close"><i class="icofont-close"></i></button>
   </div>
   <ul class="category-list">
+    {% for cat in categories %}
     <li class="category-item"><a class="category-link dropdown-link" href="#"><i
           class="flaticon-vegetable"></i><span>vegetables</span></a>
       <ul class="dropdown-list">
@@ -309,6 +118,9 @@
         <li><a href="#">carrot</a></li>
       </ul>
     </li>
+    {% empty %}
+    <strong>No product categories exist</strong>
+    {% endfor %}
     <li class="category-item"><a class="category-link dropdown-link" href="#"><i
           class="flaticon-groceries"></i><span>groceries</span></a>
       <ul class="dropdown-list">
