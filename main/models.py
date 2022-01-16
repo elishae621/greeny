@@ -79,6 +79,11 @@ class Brand(models.Model):
     def get_absolute_url(self):
         return reverse("main:brand", kwargs={"slug": self.slug})
     
+class LabelColor(models.TextChoices):
+    green = 'new'
+    grey = 'stockout'
+    blue = 'stockblue'
+    red = 'sale'
 
 class Product(models.Model):
     name = models.CharField(max_length=100, null=True)
@@ -92,9 +97,25 @@ class Product(models.Model):
     no = models.CharField(max_length=10, unique=True, default=generate_product_id)
     tags = models.CharField(max_length=100, null=True, help_text="seperate tags with a comma and single space", default='organic, raw, processed, inorganic')
     pub_date = models.DateField(auto_now_add=True)
-
+    label = models.CharField(max_length=20, null=True, blank=True)
+    labelColor = models.CharField(max_length=10, choices=LabelColor.choices, null=True, blank=True)
+    labelClass = models.CharField(max_length=5, null=True, blank=True)
+   
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if self.label:
+            self.label = self.label.upper()
+            if self.labelColor.lower() == 'green':
+                self.labelClass = 'new'
+            elif self.labelColor.lower() == 'grey':
+                self.labelClass = 'stockout'
+            elif self.labelColor.lower() == 'blue':
+                self.labelClass = 'stockblue'
+            elif self.labelColor.lower() == 'red':
+                self.labelClass = 'sale'
+        return super().save(*args, **kwargs)
     
     @cached_property
     def get_tags(self):

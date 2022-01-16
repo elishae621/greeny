@@ -146,30 +146,13 @@
 <section class="section suggest-part">
   <div class="container">
     <ul class="suggest-slider slider-arrow">
-      <li><a class="suggest-card" href="{% url 'main:shop' %}"><img src="{% static 'main/images/suggest/01.jpg' %}" alt="suggest">
-          <h5>vegetables <span>34 items</span></h5>
+       {% for cat in categories %}
+      <li><a class="suggest-card" href="{{cat.get_absolute_url}}"><img src="{% static 'main/images/suggest/01.jpg' %}" alt="suggest">
+          <h5>{{cat.name}} <span>{{cat.product_set.all|length}} items</span></h5>
         </a></li>
-      <li><a class="suggest-card" href="{% url 'main:shop' %}"><img src="{% static 'main/images/suggest/02.jpg' %}" alt="suggest">
-          <h5>fruits <span>89 items</span></h5>
-        </a></li>
-      <li><a class="suggest-card" href="{% url 'main:shop' %}"><img src="{% static 'main/images/suggest/03.jpg' %}" alt="suggest">
-          <h5>groceries <span>45 items</span></h5>
-        </a></li>
-      <li><a class="suggest-card" href="{% url 'main:shop' %}"><img src="{% static 'main/images/suggest/04.jpg' %}" alt="suggest">
-          <h5>dairy farm <span>83 items</span></h5>
-        </a></li>
-      <li><a class="suggest-card" href="{% url 'main:shop' %}"><img src="{% static 'main/images/suggest/05.jpg' %}" alt="suggest">
-          <h5>sea foods <span>40 items</span></h5>
-        </a></li>
-      <li><a class="suggest-card" href="{% url 'main:shop' %}"><img src="{% static 'main/images/suggest/06.jpg' %}" alt="suggest">
-          <h5>vegan foods <span>57 items</span></h5>
-        </a></li>
-      <li><a class="suggest-card" href="{% url 'main:shop' %}"><img src="{% static 'main/images/suggest/07.jpg' %}" alt="suggest">
-          <h5>dry foods <span>23 items</span></h5>
-        </a></li>
-      <li><a class="suggest-card" href="{% url 'main:shop' %}"><img src="{% static 'main/images/suggest/08.jpg' %}" alt="suggest">
-          <h5>fast foods <span>97 items</span></h5>
-        </a></li>
+      {% empty %}
+      <strong>No categories have been added</strong>
+      {% endfor %}
     </ul>
   </div>
 </section>
@@ -178,11 +161,12 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="section-heading">
-          <h2>recently sold items</h2>
+          <h2>Recently Sold Items</h2>
         </div>
       </div>
     </div>
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+      {% for product in products %}
       <div class="col">
         <div class="product-card">
           <div class="product-media">
