@@ -170,21 +170,30 @@
       <div class="col">
         <div class="product-card">
           <div class="product-media">
-            <div class="product-label"><label class="label-text sale">sale</label></div><button
+            {% if product.label %}
+            <div class="product-label">
+              <label class="label-text {{product.labelClass}}">{{product.label}}</label></div>
+              {% endif %}
+              <button
               class="product-wish wish"><i class="fas fa-heart"></i></button><a class="product-image"
-              href="{{product.get_absolute_url}}"><img src="{% static 'main/images/product/01.jpg' %}" alt="product"></a>
+              href="{{product.get_absolute_url}}"><img src="{{product.image.url}}" alt="product"></a>
             <div class="product-widget"><a title="Product Compare" href="{% url 'main:compare' %}"
-                class="fas fa-random"></a><a title="Product Video" href="https://youtu.be/9xzcVxSBbG8"
+                class="fas fa-random"></a><a title="Product Video" href="{{product.video_url}}"
                 class="venobox fas fa-play" data-autoplay="true" data-vbtype="video"></a><a
-                title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal"
+                title="Product View" href="" class="fas fa-eye" data-bs-toggle="modal"
                 data-bs-target="#product-view"></a></div>
           </div>
           <div class="product-content">
-            <div class="product-rating"><i class="active icofont-star"></i><i
-                class="active icofont-star"></i><i class="active icofont-star"></i><i
-                class="active icofont-star"></i><i class="icofont-star"></i><a
-                href="{{product.get_absolute_url}}">(3)</a></div>
-            <h6 class="product-name"><a href="{{product.get_absolute_url}}">fresh green chilis</a></h6>
+            <div class="product-rating">
+              {% for n in product.star %}
+              <i class="active icofont-star"></i>
+              {% endfor %}
+              {% for n in product.unstar %}
+              <i class="icofont-star"></i>
+              {% endfor %}
+              <a
+                href="{{product.get_absolute_url}}">({{product.rating}})</a></div>
+            <h6 class="product-name"><a href="{{product.get_absolute_url}}">{{product.name}}</a></h6>
             <h6 class="product-price"><del>$34</del><span>$28<small>/piece</small></span></h6><button
               class="product-add" title="Add to Cart"><i
                 class="fas fa-shopping-basket"></i><span>add</span></button>

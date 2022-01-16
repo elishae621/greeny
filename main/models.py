@@ -1,5 +1,6 @@
 from autoslug import AutoSlugField
 from decimal import Decimal
+from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.db import models
 from django.urls import reverse
@@ -34,6 +35,18 @@ def compress(image):
     new_image = File(im_io, name=image.name)
     return new_image
 
+def list_rating(rating):
+    final = ""
+    for n in range(rating):
+        final += 'x'
+    return final
+
+def validate_rating(value):
+    if value < 1 or value > 5:
+        raise ValidationError(
+        _('%(value)s is not between 1 and 5'),
+        params={'value': value},
+        )
 
 class Greeny(models.Model):
     delivery = models.IntegerField(default=50) 
@@ -76,6 +89,11 @@ class Brand(models.Model):
     def __str__(self):
         return self.name 
     
+    def save(self, *args, **kwargs):
+        new_image = compress(self.image)
+        self.image = new_image
+        return super().save(*args, **kwargs)
+    
     def get_absolute_url(self):
         return reverse("main:brand", kwargs={"slug": self.slug})
     
@@ -100,11 +118,28 @@ class Product(models.Model):
     label = models.CharField(max_length=20, null=True, blank=True)
     labelColor = models.CharField(max_length=10, choices=LabelColor.choices, null=True, blank=True)
     labelClass = models.CharField(max_length=5, null=True, blank=True)
+    rating = models.PositiveSmallIntegerField(default=generate_rating, validators=[validate_rating])
    
     def __str__(self):
         return self.name
     
+    @cached_property
+    def star(self):
+        stars = []
+        for x in range(self.rating):
+            stars.append('x')
+        return stars
+
+    @cached_property
+    def unstar(self):
+        stars = []
+        for x in range(5 - self.rating):
+            stars.append('x')
+        return stars
+    
     def save(self, *args, **kwargs):
+        new_image = compress(self.image)
+        self.image = new_image
         if self.label:
             self.label = self.label.upper()
             if self.labelColor.lower() == 'green':
@@ -131,7 +166,7 @@ class Review(models.Model):
     content = models.TextField(default=fake.paragraph(nb_sentences=2))
     image = models.ImageField(default="profile.jpeg", upload_to="reviews/")
     date = models.DateTimeField(auto_now_add=True)
-    rating = models.PositiveSmallIntegerField(default=generate_rating)
+    rating = models.PositiveSmallIntegerField(default=generate_rating, validators=[validate_rating])
     
     @cached_property
     def star(self):
@@ -146,6 +181,11 @@ class Review(models.Model):
         for x in range(5 - self.rating):
             stars.append('x')
         return stars
+    
+    def save(self, *args, **kwargs):
+        new_image = compress(self.image)
+        self.image = new_image
+        return super().save(*args, **kwargs)
     
     def __str__(self):
         return f'{self.name} on {self.date}' 
