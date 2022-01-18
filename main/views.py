@@ -27,7 +27,7 @@ class AllCategoryView(ListView):
     template_name = 'main/all-category.html'
     model = Category
     context_object_name = 'categories'
-    paginate_by = 2
+    paginate_by = 12
     ordering = ('product_count')
     
     def get_context_data(self, **kwargs):
@@ -36,8 +36,12 @@ class AllCategoryView(ListView):
         return context
     
     
-class BrandListView(TemplateView):
+class BrandListView(ListView):
     template_name = 'main/brand-list.html'
+    model = Brand
+    context_object_name = 'brands'
+    paginate_by = 12
+    ordering = ('product_count')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -122,6 +122,7 @@ class Brand(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(default=default_image, upload_to="brands/")
     slug = AutoSlugField(populate_from='name')
+    product_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name 
@@ -129,6 +130,7 @@ class Brand(models.Model):
     def save(self, *args, **kwargs):
         new_image = compress(self.image)
         self.image = new_image
+        self.product_count = self.product_set.count()
         return super().save(*args, **kwargs)
     
     def get_absolute_url(self):
