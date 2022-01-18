@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='brand',
             name='image',
-            field=models.ImageField(default='default.jpeg', upload_to='brands/'),
+            field=models.ImageField(default='default.png', upload_to='brands/'),
         ),
         migrations.AlterField(
             model_name='product',
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='product',
             name='image',
-            field=models.ImageField(default='default.jpeg', upload_to='products/'),
+            field=models.ImageField(default='default.png', upload_to='products/'),
         ),
         migrations.AlterField(
             model_name='reply',
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='review',
             name='image',
-            field=models.ImageField(default='profile.jpeg', upload_to='reviews/'),
+            field=models.ImageField(default='profile.jpg', upload_to='reviews/'),
         ),
         migrations.AlterField(
             model_name='review',

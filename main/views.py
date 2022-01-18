@@ -23,8 +23,12 @@ class AboutView(TemplateView):
         context["testimonials"] = Testimonial.objects.all()[:2]
         return context
     
-class AllCategoryView(TemplateView):
+class AllCategoryView(ListView):
     template_name = 'main/all-category.html'
+    model = Category
+    context_object_name = 'categories'
+    paginate_by = 2
+    ordering = ('product_count')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -97,7 +101,7 @@ class IndexView(TemplateView):
         context["page"] = 'home'
         products = Product.objects.all()
         context["featured_products"] = products.filter(featured=True)[:6]
-        context["new_products"] = products.order_by("-pub-date")[:5]
+        context["new_products"] = products.order_by("-pub_date")[:5]
         context["top_orders"] = products.order_by("-orders")[:10]
         context["top_rated"] = products.order_by("-rating")[:10]
         context["top_discount"] = products.exclude(discount=0).order_by("-discount")[:10]

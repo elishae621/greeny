@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100, null=True)),
                 ('slug', autoslug.fields.AutoSlugField(editable=False, null=True, populate_from='name')),
                 ('price', models.CharField(max_length=20)),
-                ('image', models.ImageField(default='default.jpeg', upload_to='images/')),
+                ('image', models.ImageField(default='default.png', upload_to='images/')),
                 ('video', models.URLField(default='https://www.youtube.com/watch?v=9xzcVxSBbG8&feature=emb_title')),
                 ('description', models.TextField(blank=True, null=True)),
                 ('no', models.CharField(max_length=10, null=True)),

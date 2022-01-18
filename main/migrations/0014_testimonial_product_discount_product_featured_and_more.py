@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(default='Rodney Walton', max_length=20)),
                 ('content', models.TextField(default='New small instead defense. Place own machine bill decide then whose. Successful find tree use. Win laugh role feel collection thus.')),
                 ('rating', models.IntegerField(default=5, validators=[main.models.validate_rating])),
-                ('image', models.ImageField(default='profile.jpeg', upload_to='testimonials/')),
+                ('image', models.ImageField(default='profile.jpg', upload_to='testimonials/')),
             ],
         ),
         migrations.AddField(

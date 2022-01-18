@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='review',
             name='image',
-            field=models.ImageField(default='profile.jpeg', upload_to='images/'),
+            field=models.ImageField(default='profile.jpg', upload_to='images/'),
         ),
         migrations.AlterField(
             model_name='cartitem',

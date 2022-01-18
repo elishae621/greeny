@@ -7,7 +7,8 @@
 
 {% block main_content %}
 
-<section class="inner-section single-banner" style="background: url(static/main/images/single-banner.jpg) no-repeat center;">
+<section class="inner-section single-banner"
+    style="background: url(static/main/images/single-banner.jpg) no-repeat center;">
     <div class="container">
         <h2>all category</h2>
         <ol class="breadcrumb">
@@ -18,269 +19,51 @@
 </section>
 <section class="inner-section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="top-filter">
-                    <div class="filter-show"><label class="filter-label">Show :</label><select
-                            class="form-select filter-select">
-                            <option value="1">12</option>
-                            <option value="2">24</option>
-                            <option value="3">36</option>
-                        </select></div>
-                    <div class="filter-short"><label class="filter-label">Short by :</label><select
-                            class="form-select filter-select">
-                            <option selected>default</option>
-                            <option value="3">trending</option>
-                            <option value="1">featured</option>
-                            <option value="2">recommend</option>
-                        </select></div>
-                </div>
-            </div>
-        </div>
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 justify-content-center">
+            {% for cate in categories %}
             <div class="col">
                 <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/dairy.jpg' %}" alt="category">
+                    <div class="category-media"><img src="{{cate.image.url}}" alt="category">
                         <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
                         </div>
                     </div>
                     <div class="category-meta">
-                        <h4>dairy items</h4>
-                        <p>(25 items)</p>
+                        <h4>{{cate.name}}</h4>
+                        <p>({{cate.product_set.count}} items)</p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/vegetables.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>vegetable items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/drinks.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>coffe & drinks</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/fish.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>fish items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/groceries.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>grocery items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/meat.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>meat items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/fruits.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>fresh fruits</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/seafoods.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>seafoods</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/fastfoods.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>fastfoods</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/dairy.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>dairy items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/vegetables.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>vegetable items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/drinks.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>coffe & drinks</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/fish.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>fish items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/groceries.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>grocery items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/meat.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>meat items</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/fruits.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>fresh fruits</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/seafoods.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>seafoods</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/fastfoods.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>fastfoods</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="category-wrap">
-                    <div class="category-media"><img src="{% static 'main/images/category/fastfoods.jpg' %}" alt="category">
-                        <div class="category-overlay"><a href="{% url 'main:shop' %}"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="category-meta">
-                        <h4>fastfoods</h4>
-                        <p>(25 items)</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="bottom-paginate">
-                    <p class="page-info">Showing 12 of 60 Results</p>
                     <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#"><i
+                        {% if page_obj.has_previous %}
+                        {% if page_obj.previous_page_number > 1 %}
+                        <li class="page-item"><a class="page-link" href="?page=1">{{1}}</a></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><i
                                     class="fas fa-long-arrow-alt-left"></i></a></li>
-                        <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">...</li>
-                        <li class="page-item"><a class="page-link" href="#">60</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                        <li class="page-item"><a class="page-link active" href="?page={{num}}">{{num}}</a></li>
+                        {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'3' %}
+                        <li class="page-item"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><i
                                     class="fas fa-long-arrow-alt-right"></i></a></li>
+                        {% if page_obj.next_page_number < page_obj.paginator.num_pages %}
+                        <li class="page-item"><a class="page-link"
+                                href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>

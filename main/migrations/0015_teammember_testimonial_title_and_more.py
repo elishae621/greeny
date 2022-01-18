@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(default='Morgan Patterson', max_length=20)),
                 ('title', models.CharField(default=main.models.generate_team_title, max_length=50)),
-                ('image', models.ImageField(default='profile.jpeg', upload_to='team_members/')),
+                ('image', models.ImageField(default='profile.jpg', upload_to='team_members/')),
                 ('facebook', models.URLField(default='https://facebook.com')),
                 ('twitter', models.URLField(default='https://twitter.com')),
                 ('linkedin', models.URLField(default='https://linkedIn.com')),

@@ -16,8 +16,8 @@ import os
 
 fake = Faker()
 product_url_name = "main:product"
-default_profile_image = "profile.jpeg"
-
+default_profile_image = "profile.jpg"
+default_image = "default.png"
 
 
 def generate_product_id():
@@ -99,6 +99,8 @@ class Greeny(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50)
     slug = AutoSlugField(populate_from='name')
+    image = models.ImageField(default=default_image, upload_to="categories/")
+    product_count = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -109,10 +111,16 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse("main:shop") + f'?c={self.slug}'
     
+    def save(self, *args, **kwargs):
+        new_image = compress(self.image)
+        self.image = new_image
+        self.product_count = self.product_set.count()
+        return super().save(*args, **kwargs)
+    
 
 class Brand(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(default="default.jpeg", upload_to="brands/")
+    image = models.ImageField(default=default_image, upload_to="brands/")
     slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
@@ -137,7 +145,7 @@ class Product(models.Model):
     slug = AutoSlugField(populate_from='name', null=True)
     old_price = models.CharField(max_length=20, default=generate_old_price)
     price = models.CharField(max_length=20, default=generate_price)
-    image = models.ImageField(default="default.jpeg", upload_to="products/")
+    image = models.ImageField(default=default_image, upload_to="products/")
     video_url = models.URLField(default='https://www.youtube.com/watch?v=9xzcVxSBbG8&feature=emb_title')
     description = models.TextField(null=True, blank=True, default=fake.paragraph(nb_sentences=5))
     category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
