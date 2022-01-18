@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.http.response import JsonResponse 
 from django.shortcuts import render
-from main.models import Category, Product
+from main.models import Category, Product, Brand, Testimonial
 from user.models import Subscriber 
 
 def error_404(request, exception):
@@ -91,6 +91,14 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Classic Home - Greeny"
         context["page"] = 'home'
+        products = Product.objects.all()
+        context["featured_products"] = products.filter(featured=True)[:6]
+        context["new_products"] = products.order_by("-pub-date")[:5]
+        context["top_orders"] = products.order_by("-orders")[:10]
+        context["top_rated"] = products.order_by("-rating")[:10]
+        context["top_discount"] = products.exclude(discount=0).order_by("-discount")[:10]
+        context["brands"] = Brand.objects.all()
+        context["testimonials"] = Testimonial.objects.all()
         return context
     
     

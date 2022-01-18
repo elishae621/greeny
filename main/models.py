@@ -21,11 +21,20 @@ product_url_name = "main:product"
 def generate_product_id():
     return random.randint(100000, 1000000)
 
+def generate_old_price():
+    return round(random.random() * 100 + 20, 2)
+
 def generate_price():
     return round(random.random() * 100, 2)
 
+def generate_order():
+    return random.randint(0, 100)
+
 def generate_rating():
     return random.randint(1, 5)
+
+def generate_discount():
+    return fake.random_element(elements=[0, 0, 10, 20])
 
 def compress(image):
     img = Image.open(image)
@@ -106,6 +115,7 @@ class LabelColor(models.TextChoices):
 class Product(models.Model):
     name = models.CharField(max_length=100, null=True)
     slug = AutoSlugField(populate_from='name', null=True)
+    old_price = models.CharField(max_length=20, default=generate_old_price)
     price = models.CharField(max_length=20, default=generate_price)
     image = models.ImageField(default="default.jpeg", upload_to="products/")
     video_url = models.URLField(default='https://www.youtube.com/watch?v=9xzcVxSBbG8&feature=emb_title')
@@ -119,6 +129,9 @@ class Product(models.Model):
     labelColor = models.CharField(max_length=10, choices=LabelColor.choices, null=True, blank=True)
     labelClass = models.CharField(max_length=5, null=True, blank=True)
     rating = models.PositiveSmallIntegerField(default=generate_rating, validators=[validate_rating])
+    featured = models.BooleanField(default=False)
+    orders = models.IntegerField(default=generate_order)
+    discount = models.IntegerField(default=generate_discount)
    
     def __str__(self):
         return self.name
@@ -310,3 +323,31 @@ class Message(models.Model):
 class Coupon(models.Model):
     code = models.CharField(max_length=30)
     discount = models.IntegerField(default=10)
+    
+
+class Testimonial(models.Model):
+    name = models.CharField(max_length=20, default=fake.name())
+    content = models.TextField(default=fake.paragraph(nb_sentences=3))
+    rating = models.IntegerField(validators=[validate_rating], default=random.randint(4, 5))
+    image = models.ImageField(default="profile.jpeg", upload_to="testimonials/")
+    
+    
+    @cached_property
+    def star(self):
+        stars = []
+        for x in range(self.rating):
+            stars.append('x')
+        return stars
+
+    @cached_property
+    def unstar(self):
+        stars = []
+        for x in range(5 - self.rating):
+            stars.append('x')
+        return stars
+    
+    def save(self, *args, **kwargs):
+        new_image = compress(self.image)
+        self.image = new_image
+        return super().save(*args, **kwargs)
+    
