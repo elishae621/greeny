@@ -1,3 +1,4 @@
+from email.policy import default
 from autoslug import AutoSlugField
 from decimal import Decimal
 from django.core.exceptions import ValidationError
@@ -15,6 +16,7 @@ import os
 
 fake = Faker()
 product_url_name = "main:product"
+default_profile_image = "profile.jpeg"
 
 
 
@@ -36,6 +38,24 @@ def generate_rating():
 def generate_discount():
     return fake.random_element(elements=[0, 0, 10, 20])
 
+def generate_testi_title():
+    return f"{fake.random_element(elements=['Former MD', 'MD'])} - {fake.company()}"
+
+def generate_team_title():
+    n = 1
+    if n == 1:
+        yield 'Founder & CEO'
+    n += 1
+    if n == 2:
+        yield 'Web developer'
+    n += 1 
+    if n == 3:
+        yield 'Digital Marketer'
+    n += 1
+    if n == 4:
+        n = 1
+        yield 'Article Writer'
+
 def compress(image):
     img = Image.open(image)
     im_io = BytesIO()
@@ -52,8 +72,7 @@ def list_rating(rating):
 
 def validate_rating(value):
     if value < 1 or value > 5:
-        raise ValidationError(
-        _('%(value)s is not between 1 and 5'),
+        raise ValidationError('%(value)s is not between 1 and 5',
         params={'value': value},
         )
 
@@ -69,6 +88,7 @@ class Greeny(models.Model):
     linkedin = models.URLField(default='https://linkedIn.com')
     instagram = models.URLField(default='https://instagram.com')
     interest = models.URLField(default='https://pinterest.com')
+
 
     class Meta:
         verbose_name_plural = "Greeny"
@@ -177,7 +197,7 @@ class Review(models.Model):
     product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=20, default=fake.name())
     content = models.TextField(default=fake.paragraph(nb_sentences=2))
-    image = models.ImageField(default="profile.jpeg", upload_to="reviews/")
+    image = models.ImageField(default=default_profile_image, upload_to="reviews/")
     date = models.DateTimeField(auto_now_add=True)
     rating = models.PositiveSmallIntegerField(default=generate_rating, validators=[validate_rating])
     
@@ -327,9 +347,10 @@ class Coupon(models.Model):
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=20, default=fake.name())
+    title = models.CharField(max_length=50, default=generate_testi_title)
     content = models.TextField(default=fake.paragraph(nb_sentences=3))
     rating = models.IntegerField(validators=[validate_rating], default=random.randint(4, 5))
-    image = models.ImageField(default="profile.jpeg", upload_to="testimonials/")
+    image = models.ImageField(default=default_profile_image, upload_to="testimonials/")
     
     
     @cached_property
@@ -351,3 +372,10 @@ class Testimonial(models.Model):
         self.image = new_image
         return super().save(*args, **kwargs)
     
+class TeamMember(models.Model):
+    name = models.CharField(max_length=20, default=fake.name())
+    title = models.CharField(max_length=50, default=generate_team_title)
+    image = models.ImageField(default=default_profile_image, upload_to="team_members/")
+    facebook = models.URLField(default='https://facebook.com')
+    twitter = models.URLField(default='https://twitter.com')
+    linkedin = models.URLField(default='https://linkedIn.com')

@@ -5,7 +5,8 @@ from django.views.generic.edit import CreateView
 from django.http.response import JsonResponse 
 from django.shortcuts import render
 from main.models import Category, Product, Brand, Testimonial
-from user.models import Subscriber 
+from user.models import Subscriber, User
+
 
 def error_404(request, exception):
     data = {}
@@ -17,6 +18,9 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Greeny - About"
+        context["user_count"] = User.objects.count()
+        context["product_count"] = Product.objects.count()
+        context["testimonials"] = Testimonial.objects.all()[:2]
         return context
     
 class AllCategoryView(TemplateView):
