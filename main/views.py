@@ -48,8 +48,9 @@ class BrandListView(ListView):
         context["title"] = "Greeny - Brands"
         return context
     
-class BrandSingleView(TemplateView):
+class BrandSingleView(DetailView):
     template_name = 'main/brand-single.html'
+    model = Brand
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

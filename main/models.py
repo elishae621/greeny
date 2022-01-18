@@ -38,8 +38,20 @@ def generate_rating():
 def generate_discount():
     return fake.random_element(elements=[0, 0, 10, 20])
 
+def generate_rating_count():
+    return random.randint(12, 54)
+
 def generate_testi_title():
     return f"{fake.random_element(elements=['Former MD', 'MD'])} - {fake.company()}"
+
+def generate_product_description():
+    return fake.paragraph(nb_sentences=5)
+
+def generate_comment_content():
+    return fake.paragraph(nb_sentences=1)
+
+def generate_name():
+    return fake.name()
 
 def generate_team_title():
     n = 1
@@ -123,6 +135,7 @@ class Brand(models.Model):
     image = models.ImageField(default=default_image, upload_to="brands/")
     slug = AutoSlugField(populate_from='name')
     product_count = models.IntegerField(default=0)
+    rating_count = models.IntegerField(default=generate_rating_count)
 
     def __str__(self):
         return self.name 
@@ -149,7 +162,7 @@ class Product(models.Model):
     price = models.CharField(max_length=20, default=generate_price)
     image = models.ImageField(default=default_image, upload_to="products/")
     video_url = models.URLField(default='https://www.youtube.com/watch?v=9xzcVxSBbG8&feature=emb_title')
-    description = models.TextField(null=True, blank=True, default=fake.paragraph(nb_sentences=5))
+    description = models.TextField(null=True, blank=True, default=generate_product_description)
     category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, null=True, on_delete=models.CASCADE)
     no = models.CharField(max_length=10, unique=True, default=generate_product_id)
@@ -205,8 +218,8 @@ class Product(models.Model):
 
 class Review(models.Model):
     product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=20, default=fake.name())
-    content = models.TextField(default=fake.paragraph(nb_sentences=2))
+    name = models.CharField(max_length=20, default=generate_name)
+    content = models.TextField(default=generate_comment_content)
     image = models.ImageField(default=default_profile_image, upload_to="reviews/")
     date = models.DateTimeField(auto_now_add=True)
     rating = models.PositiveSmallIntegerField(default=generate_rating, validators=[validate_rating])
@@ -239,8 +252,8 @@ class Review(models.Model):
     
 class Reply(models.Model):
     review = models.ForeignKey(Review, null=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, default=fake.name())
-    content = models.TextField(default=fake.paragraph(nb_sentences=1))
+    name = models.CharField(max_length=50, default=generate_name)
+    content = models.TextField(default=generate_comment_content)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -356,9 +369,9 @@ class Coupon(models.Model):
     
 
 class Testimonial(models.Model):
-    name = models.CharField(max_length=20, default=fake.name())
+    name = models.CharField(max_length=20, default=generate_name)
     title = models.CharField(max_length=50, default=generate_testi_title)
-    content = models.TextField(default=fake.paragraph(nb_sentences=3))
+    content = models.TextField(default=generate_comment_content)
     rating = models.IntegerField(validators=[validate_rating], default=random.randint(4, 5))
     image = models.ImageField(default=default_profile_image, upload_to="testimonials/")
     
@@ -383,7 +396,7 @@ class Testimonial(models.Model):
         return super().save(*args, **kwargs)
     
 class TeamMember(models.Model):
-    name = models.CharField(max_length=20, default=fake.name())
+    name = models.CharField(max_length=20, default=generate_name)
     title = models.CharField(max_length=50, default=generate_team_title)
     image = models.ImageField(default=default_profile_image, upload_to="team_members/")
     facebook = models.URLField(default='https://facebook.com')
