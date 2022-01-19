@@ -1,10 +1,15 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.http.response import JsonResponse, HttpResponseRedirect
 from django.views.generic import TemplateView 
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.http.response import JsonResponse 
+from django.urls import reverse
 from django.shortcuts import render
-from main.models import Category, Product, Brand, Testimonial
+from main.models import Category, Product, Brand, Testimonial, Order
+from main.signals import order_created
 from user.models import Subscriber, User
 
 
@@ -54,15 +59,54 @@ class BrandSingleView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Greeny - Brand"
+        context["titl'e"] = "Greeny - Brand"
         return context
     
 class CheckoutView(TemplateView):
     template_name = 'main/checkout.html'
     
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if user.total_cost != 0:
+            order = Order.objects.create(user=user, cost=user.total_cost)
+            for item in user.cart.all():
+                item.order = order
+                item.save()
+                order.cart.add(item)
+                order.save()
+            user.firstname = request.POST.get('firstname')
+            user.lastname = request.POST.get('lastname')
+            user.city = request.POST.get('city')
+            user.phone = request.POST.get('phone')
+            user.address = request.POST.get('address')
+            user.discount = 0
+            if 'apartment' in request.POST:
+                user.apartment = request.POST.get('apartment')
+            user.email = request.POST.get('email')
+            user.save()
+            order.city = request.POST.get('city')
+            order.phone = request.POST.get('phone')
+            if 'apartment' in request.POST:
+                order.apartment = request.POST.get('apartment')
+            order.email = request.POST.get('email')
+            for item in user.cart.all():
+                user.cart.remove(item)
+            user.save()
+            order.address = request.POST.get('address')
+            order.state = request.POST.get('state')
+            order.country = request.POST.get('country')
+            order.notes = request.POST.get('notes')
+            order.method = request.POST.get('payment_method')
+            order.postcode = request.POST.get('postcode')
+            order.save()
+            order_created.send(sender=Order, order=order)
+            messages.add_message(request, messages.SUCCESS, "Your product will be shipped after payment confirmation, stay in touch")
+        return HttpResponseRedirect(reverse('home'))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Greeny - checkout"
+        
         return context
     
 class ComingSoonView(TemplateView):

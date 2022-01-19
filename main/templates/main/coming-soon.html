@@ -20,14 +20,16 @@
                             class="countdown-time"><span>00</span><small>seconds</small></span></div>
                     <h3 class="coming-subtitle">We are currently working on an awesome new site. Subscribe to our
                         newsletter to stay updated.</h3>
-                    <form class="coming-form"><input type="text" placeholder="enter your email"><button><i
+                    <form class="coming-form"><input type="text" placeholder="enter your email" class='sub-email'><button onclick=subscribe()><i
                                 class="icofont-paper-plane"></i></button></form>
-                    <div class="coming-social"><a class="icofont-facebook" href="#"></a><a class="icofont-twitter"
-                            href="#"></a><a class="icofont-linkedin" href="#"></a><a class="icofont-instagram"
-                            href="#"></a><a class="icofont-pinterest" href="#"></a></div>
+                    <div class="coming-social"><a class="icofont-facebook" href="{{greeny.facebook}}"></a><a
+                            class="icofont-twitter" href="{{greeny.twitter}}"></a><a class="icofont-linkedin"
+                            href="{{greeny.linkedin}}"></a><a class="icofont-instagram" href="{{greeny.instagram}}"></a><a class="icofont-pinterest"
+                            href="{{greeny.pinterest}}"></a></div>
                 </div>
             </div>
-            <div class="col-lg-5"><img class="img-fluid" src="{% static 'main/images/coming-soon.png' %}" alt="coming-soon"></div>
+            <div class="col-lg-5"><img class="img-fluid" src="{% static 'main/images/coming-soon.png' %}"
+                    alt="coming-soon"></div>
         </div>
     </div>
 </section>
