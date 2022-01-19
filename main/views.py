@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView
 from django.http.response import JsonResponse 
 from django.urls import reverse
 from django.shortcuts import render
-from main.models import Category, Faq, Product, Brand, Testimonial, Message
+from main.models import Category, Faq, Product, Brand, Testimonial, Order, Message
 from main.signals import order_created
 from user.models import Subscriber, User
 
@@ -174,8 +174,9 @@ class IndexView(TemplateView):
         return context
     
     
-class InvoiceView(TemplateView):
+class InvoiceView(DetailView):
     template_name = 'main/invoice.html'
+    model = Order
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

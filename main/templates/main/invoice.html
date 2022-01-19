@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'main/css/invoice.css' %}">
@@ -34,10 +35,10 @@
                     </div>
                     <div class="account-content">
                         <div class="invoice-recieved">
-                            <h6>order number <span>1665</span></h6>
-                            <h6>order date <span>february 02, 2021</span></h6>
-                            <h6>total amount <span>$24,176.00</span></h6>
-                            <h6>payment method <span>Cash on delivery</span></h6>
+                            <h6>order number <span>{{order.no}}</span></h6>
+                            <h6>order date <span>{{order.date_ordered|date:"F d, Y"}}</span></h6>
+                            <h6>total amount <span>${{order.cost|intcomma}}</span></h6>
+                            <h6>payment method <span>{{order.method}}</span></h6>
                         </div>
                     </div>
                 </div>
@@ -51,19 +52,19 @@
                         <ul class="invoice-details">
                             <li>
                                 <h6>Total Item</h6>
-                                <p>6 Items</p>
+                                <p>{{order.cart.count}} Items</p>
                             </li>
                             <li>
                                 <h6>Order Time</h6>
-                                <p>1.00pm 10-12-2021</p>
+                                <p>{{order.date_ordered|date:"h:i a, d-m-Y"}}</p>
                             </li>
                             <li>
                                 <h6>Delivery Time</h6>
-                                <p>90 Minute Express Delivery</p>
+                                <p>{{order.delivery_time}}</p>
                             </li>
                             <li>
                                 <h6>Delivery Location</h6>
-                                <p>House 17/A, West Jalkuri, Dhaka.</p>
+                                <p>{{order.address}}</p>
                             </li>
                         </ul>
                     </div>
@@ -78,19 +79,23 @@
                         <ul class="invoice-details">
                             <li>
                                 <h6>Sub Total</h6>
-                                <p>$10,864.00</p>
+                                <p>${{order.subtotal|intcomma}}</p>
                             </li>
                             <li>
                                 <h6>discount</h6>
-                                <p>$20.00</p>
+                                <p>${{order.discount|intcomma}}</p>
+                            </li>
+                            <li>
+                                <h6>delivery</h6>
+                                <p>${{order.delivery|intcomma}}</p>
                             </li>
                             <li>
                                 <h6>Payment Method</h6>
-                                <p>Cash On Delivery</p>
+                                <p>{{order.method}}</p>
                             </li>
                             <li>
                                 <h6>Total<small>(Incl. VAT)</small></h6>
-                                <p>$10,874.00</p>
+                                <p>${{order.cost|intcomma}}</p>
                             </li>
                         </ul>
                     </div>
@@ -110,96 +115,45 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for item in order.cart %}
                             <tr>
                                 <td class="table-serial">
-                                    <h6>01</h6>
+                                    <h6>{{forloop.counter}}</h6>
                                 </td>
-                                <td class="table-image"><img src="{% static 'main/images/product/01.jpg' %}" alt="product"></td>
+                                <td class="table-image"><img src="{{item.product.image.url}}" alt="product"></td>
                                 <td class="table-name">
-                                    <h6>product name</h6>
+                                    <h6>{{item.product.name}}</h6>
                                 </td>
                                 <td class="table-price">
-                                    <h6>$19<small>/kilo</small></h6>
+                                    <h6>${{item.product.price}}<small>/kilo</small></h6>
                                 </td>
                                 <td class="table-brand">
-                                    <h6>Fresh Company</h6>
+                                    <h6>{{item.product.brand.name}}</h6>
                                 </td>
                                 <td class="table-quantity">
-                                    <h6>3</h6>
+                                    <h6>{{item.quantity}}</h6>
                                 </td>
                             </tr>
+                            {% empty %}
                             <tr>
                                 <td class="table-serial">
-                                    <h6>02</h6>
+                                    -
                                 </td>
-                                <td class="table-image"><img src="{% static 'main/images/product/02.jpg' %}" alt="product"></td>
+                                <td class="table-image">-</td>
                                 <td class="table-name">
-                                    <h6>product name</h6>
+                                    -
                                 </td>
                                 <td class="table-price">
-                                    <h6>$19<small>/kilo</small></h6>
+                                    -
                                 </td>
                                 <td class="table-brand">
-                                    <h6>Radhuni Masala</h6>
+                                    -
                                 </td>
                                 <td class="table-quantity">
-                                    <h6>5</h6>
+                                    -
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="table-serial">
-                                    <h6>03</h6>
-                                </td>
-                                <td class="table-image"><img src="{% static 'main/images/product/03.jpg' %}" alt="product"></td>
-                                <td class="table-name">
-                                    <h6>product name</h6>
-                                </td>
-                                <td class="table-price">
-                                    <h6>$19<small>/kilo</small></h6>
-                                </td>
-                                <td class="table-brand">
-                                    <h6>Pran Prio</h6>
-                                </td>
-                                <td class="table-quantity">
-                                    <h6>2</h6>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="table-serial">
-                                    <h6>04</h6>
-                                </td>
-                                <td class="table-image"><img src="{% static 'main/images/product/04.jpg' %}" alt="product"></td>
-                                <td class="table-name">
-                                    <h6>product name</h6>
-                                </td>
-                                <td class="table-price">
-                                    <h6>$19<small>/kilo</small></h6>
-                                </td>
-                                <td class="table-brand">
-                                    <h6>Real Food</h6>
-                                </td>
-                                <td class="table-quantity">
-                                    <h6>3</h6>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="table-serial">
-                                    <h6>05</h6>
-                                </td>
-                                <td class="table-image"><img src="{% static 'main/images/product/05.jpg' %}" alt="product"></td>
-                                <td class="table-name">
-                                    <h6>product name</h6>
-                                </td>
-                                <td class="table-price">
-                                    <h6>$19<small>/kilo</small></h6>
-                                </td>
-                                <td class="table-brand">
-                                    <h6>Rdhuni Company</h6>
-                                </td>
-                                <td class="table-quantity">
-                                    <h6>7</h6>
-                                </td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

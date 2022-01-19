@@ -314,6 +314,8 @@ class OrderStatus(models.TextChoices):
 
 class Order(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    no = models.CharField(max_length=15, default=generate_product_id)
+    slug = AutoSlugField(populate_from='no', null=True)
     address = models.CharField(
         max_length=50, default='', null=True, blank=True)
     apartment = models.CharField(
@@ -325,20 +327,30 @@ class Order(models.Model):
     email = models.EmailField(default='', null=True, blank=True)
     cart = models.ManyToManyField(CartItem)
     products = models.TextField(null=True, blank=True, default='')
-    cost = models.IntegerField(default=0)
+    method = models.CharField(max_length=50, default='card payment', null=True)
+    cost = models.DecimalField(decimal_places=2, max_digits=7, default=0.00)
+    discount = models.DecimalField(decimal_places=2, max_digits=7, default=0.00)
+    delivery = models.DecimalField(decimal_places=2, max_digits=7, default=0.00)
     notes = models.TextField(null=True, blank=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=11, choices=OrderStatus.choices, default=OrderStatus.CREATED)
-    method = models.CharField(max_length=50, default='', null=True)
+    method = models.CharField(max_length=50, default='card payment', null=True)
+    delivery_time = models.CharField(max_length=50, default='90 minutes express delivery', null=True)
 
     @cached_property
     def get_products(self):
         self.products = ''
-        for idx, item in enumerate(list(self.user.cart.all())):
+        for idx, item in enumerate(list(self.cart.all())):
             self.products += f'({idx+1}) {item.product.name} {item.variant} at {item.variant.price} \n\n'
         return self.products
 
+    def subtotal(self):
+        total = 0
+        for item in self.cart.all():
+            total += (item.product.price * item.quantity)
+        return total
+        
     def save(self, *args, **kwargs):
         if self.id:
             self.products = self.get_products
@@ -375,6 +387,7 @@ class Message(models.Model):
 class Coupon(models.Model):
     code = models.CharField(max_length=30)
     discount = models.IntegerField(default=10)
+    link = models.URLField(default='/')
     
 
 class Testimonial(models.Model):
