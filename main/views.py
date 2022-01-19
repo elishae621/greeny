@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView
 from django.http.response import JsonResponse 
 from django.urls import reverse
 from django.shortcuts import render
-from main.models import Category, Product, Brand, Testimonial, Order
+from main.models import Category, Product, Brand, Testimonial, Message
 from main.signals import order_created
 from user.models import Subscriber, User
 
@@ -125,8 +125,21 @@ class CompareView(TemplateView):
         context["title"] = "Greeny - Compare"
         return context
 
-class ContactView(TemplateView):
+class ContactView(CreateView):
     template_name = 'main/contact.html'
+    model = Message
+    fields = ['name', 'email', 'subject', 'content']
+    
+    def get_success_url(self):
+        return self.request.path
+    
+    def form_valid(self, form):
+        messages.add_message(self.request, messages.SUCCESS, 'Your message has been received. Expect a reply soon.')
+        return super().form_valid(form)
+        
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, 'An error occured!')
+        return super().form_invalid(form)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

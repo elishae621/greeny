@@ -22,19 +22,19 @@
             <div class="col-md-6 col-lg-4">
                 <div class="contact-card"><i class="icofont-location-pin"></i>
                     <h4>head office</h4>
-                    <p>1Hd- 50, 010 Avenue, NY 90001 United States</p>
+                    <p>{{greeny.address}}</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
                 <div class="contact-card active"><i class="icofont-phone"></i>
                     <h4>phone number</h4>
-                    <p><a href="#">009-215-5596 <span>(toll free)</span></a><a href="#">009-215-5595</a></p>
+                    <p><a href="tel:{{greeny.phone}}">{{greeny.phone}} <span>(toll free)</span></a></p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
                 <div class="contact-card"><i class="icofont-email"></i>
                     <h4>Support mail</h4>
-                    <p><a href="#">contact@example.com</a><a href="#">info@example.com</a></p>
+                    <p><a href="mailto:{{greeny.email}}">{{greeny.email}}</a></p>
                 </div>
             </div>
         </div>
@@ -45,23 +45,24 @@
                         aria-hidden="false" tabindex="0"></iframe></div>
             </div>
             <div class="col-lg-6">
-                <form class="contact-form">
+                <form class="contact-form" method="POST" action="{% url 'main:contact' %}">
+                    {% csrf_token %}
                     <h4>Drop Your Thoughts</h4>
                     <div class="form-group">
-                        <div class="form-input-group"><input class="form-control" type="text" placeholder="Your Name"><i
+                        <div class="form-input-group"><input class="form-control" type="text" placeholder="Your Name" name="name"><i
                                 class="icofont-user-alt-3"></i></div>
                     </div>
                     <div class="form-group">
                         <div class="form-input-group"><input class="form-control" type="text"
-                                placeholder="Your Email"><i class="icofont-email"></i></div>
+                                placeholder="Your Email" name="email"><i class="icofont-email"></i></div>
                     </div>
                     <div class="form-group">
                         <div class="form-input-group"><input class="form-control" type="text"
-                                placeholder="Your Subject"><i class="icofont-book-mark"></i></div>
+                                placeholder="Your Subject" name="subject"><i class="icofont-book-mark"></i></div>
                     </div>
                     <div class="form-group">
                         <div class="form-input-group"><textarea class="form-control"
-                                placeholder="Your Message"></textarea><i class="icofont-paragraph"></i></div>
+                                placeholder="Your Message" name="content"></textarea><i class="icofont-paragraph"></i></div>
                     </div><button type="submit" class="form-btn-group"><i class="fas fa-envelope"></i><span>send
                             message</span></button>
                 </form>

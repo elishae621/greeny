@@ -362,6 +362,7 @@ class Message(models.Model):
     name = models.CharField(max_length=40, null=True)
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(max_length=15, null=True)
+    subject = models.CharField(max_length=225, null=True)
     content = models.TextField(null=True)
     date_sent = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
