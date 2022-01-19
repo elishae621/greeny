@@ -53,6 +53,9 @@ def generate_comment_content():
 def generate_name():
     return fake.name()
 
+def generate_testi_rating():
+    return random.randint(4, 5)
+
 def generate_team_title():
     n = 1
     if n == 1:
@@ -155,6 +158,10 @@ class LabelColor(models.TextChoices):
     blue = 'stockblue'
     red = 'sale'
 
+class ProductAvaliability(models.TextChoices):
+    stock_in = 'stock in'
+    stock_out = 'stock out'
+
 class Product(models.Model):
     name = models.CharField(max_length=100, null=True)
     slug = AutoSlugField(populate_from='name', null=True)
@@ -175,6 +182,7 @@ class Product(models.Model):
     featured = models.BooleanField(default=False)
     orders = models.IntegerField(default=generate_order)
     discount = models.IntegerField(default=generate_discount)
+    status = models.CharField(max_length=9, choices=ProductAvaliability.choices, default=ProductAvaliability.stock_in)
    
     def __str__(self):
         return self.name
@@ -372,7 +380,7 @@ class Testimonial(models.Model):
     name = models.CharField(max_length=20, default=generate_name)
     title = models.CharField(max_length=50, default=generate_testi_title)
     content = models.TextField(default=generate_comment_content)
-    rating = models.IntegerField(validators=[validate_rating], default=random.randint(4, 5))
+    rating = models.IntegerField(validators=[validate_rating], default=generate_testi_rating)
     image = models.ImageField(default=default_profile_image, upload_to="testimonials/")
     
     
