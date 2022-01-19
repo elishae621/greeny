@@ -411,3 +411,11 @@ class TeamMember(models.Model):
     facebook = models.URLField(default='https://facebook.com')
     twitter = models.URLField(default='https://twitter.com')
     linkedin = models.URLField(default='https://linkedIn.com')
+    
+class Faq(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    
+    def str(self):
+        return self.question[:20]
+    

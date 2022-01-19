@@ -21,6 +21,14 @@
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="faq-parent">
+                    {% for faq in faqs %}
+                    <div class="faq-child">
+                        <div class="faq-que"><button>{{faq.question}}</button></div>
+                        <div class="faq-ans">
+                            <p>{{faq.answer}}</p>
+                        </div>
+                    </div>
+                    {% endif %}
                     <div class="faq-child">
                         <div class="faq-que"><button>How to contact with Customer Service?</button></div>
                         <div class="faq-ans">

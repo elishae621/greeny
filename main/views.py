@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView
 from django.http.response import JsonResponse 
 from django.urls import reverse
 from django.shortcuts import render
-from main.models import Category, Product, Brand, Testimonial, Message
+from main.models import Category, Faq, Product, Brand, Testimonial, Message
 from main.signals import order_created
 from user.models import Subscriber, User
 
@@ -146,8 +146,10 @@ class ContactView(CreateView):
         context["title"] = "Greeny - Contact"
         return context
     
-class FaqView(TemplateView):
+class FaqView(ListView):
     template_name = 'main/faq.html'
+    model = Faq
+    context_object_name = 'faqs'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
